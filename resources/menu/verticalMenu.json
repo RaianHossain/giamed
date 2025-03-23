@@ -1,0 +1,45 @@
+{
+  "menu": [
+    {
+      "url": "/dashboard",
+      "name": "Content",
+      "icon": "menu-icon tf-icons ri-home-smile-line",
+      "slug": "dashboard",
+      "badge": [
+        "danger",
+        "5"
+      ],
+      "submenu": [
+        {
+          "url": "/dashboard/services",
+          "name": "Services",
+          "slug": "content-services"
+        }
+      ]
+    },
+    {
+      "url": "/dashboard/categories",
+      "name": "Categories",
+      "icon": "menu-icon tf-icons ri-box-3-line",
+      "slug": "app-email"
+    },
+    {
+      "url": "/dashboard/brands",
+      "name": "Brands",
+      "icon": "menu-icon tf-icons ri-box-3-line",
+      "slug": "app-email"
+    },
+    {
+      "url": "/dashboard/sub-categories",
+      "name": "Sub-Categories",
+      "icon": "menu-icon tf-icons ri-box-3-line",
+      "slug": "app-email"
+    },
+    {
+      "url": "/dashboard/products",
+      "name": "Products",
+      "icon": "menu-icon tf-icons ri-box-3-line",
+      "slug": "app-email"
+    }
+  ]
+}
