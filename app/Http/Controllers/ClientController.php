@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class ClientController extends Controller
 {
@@ -16,9 +18,6 @@ class ClientController extends Controller
         return view('client.about');
     }
 
-    public function shop() {
-        return view('client.shop');
-    }
 
     public function serviceDetails($slug) {
         $service = Service::where('slug', $slug)->first();
@@ -41,4 +40,59 @@ class ClientController extends Controller
         $services = Service::paginate(10);
         return view('client.all-services', compact('services'));
     }
+
+    public function shop(Request $request)
+    {
+        $query = Product::query();
+
+        // Filters
+        if ($request->filled('name')) {
+            $query->where('title', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        if ($request->filled('subcategory')) {
+            $query->where('sub_category_id', $request->subcategory);
+        }
+
+        if ($request->filled('brand')) {
+            $query->where('brand_id', $request->brand);
+        }
+
+        // Eager load relationships
+        $products = $query->with(['category', 'subCategory', 'brand'])->paginate(9);
+
+        // For filter dropdowns
+        $categories = \App\Models\Category::all();
+        $subCategories = \App\Models\SubCategory::all();
+        $brands = \App\Models\Brand::all();
+
+        return view('client.shop', compact('products', 'categories', 'subCategories', 'brands'));
+    }
+
+    
+    public function productDetails($id)
+    {
+        $product = Product::with(['category', 'subCategory', 'brand'])
+                    ->findOrFail($id);
+        
+        return response()->json([
+            'title' => $product->title,
+            'price' => $product->price,
+            'description' => $product->description,
+            'avatar' => $product->avatar,
+            'category' => $product->category,
+            'sub_category' => $product->subCategory,
+            'brand' => $product->brand,
+        ]);
+    }
+
+    public function getSubcategoriesByCategory(Category $category)
+    {
+        return response()->json($category->subCategories);
+    }
+
 }

@@ -94,50 +94,54 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <!-- View Button -->
-                                    <a class="dropdown-item">
-                                        <button class="btn btn-sm btn-info view-product-btn fixed-width"
-                                            data-id="{{ $product->id }}"
-                                            data-title="{{ $product->title }}"
-                                            data-slug="{{ $product->slug }}"
-                                            data-description="{{ $product->description }}"
-                                            data-price="{{ $product->price }}"
-                                            data-quantity="{{ $product->quantity }}"
-                                            data-active="{{ $product->active }}"
-                                            data-featured="{{ $product->featured }}"
-                                            data-avatar="{{ asset('storage/' . $product->avatar) }}"
-                                            data-cover="{{ asset('storage/' . $product->cover) }}"
-                                            data-tags="{{ json_encode($product->tags) }}"
-                                            data-category="{{ $product->category_id }}"
-                                            data-sub-category="{{ $product->sub_category_id }}"
-                                            data-brand="{{ $product->brand_id }}"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#viewProductModal">
-                                            <i class="ri-eye-line me-1"></i> View
-                                        </button>
-                                    </a>
-
+                                    <button 
+                                        class="dropdown-item view-product-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#viewProductModal"
+                                        data-title="{{ $product->title }}"
+                                        data-description="{{ $product->description }}"
+                                        data-price="{{ $product->price }}"
+                                        data-quantity="{{ $product->quantity }}"
+                                        data-active="{{ $product->active }}"
+                                        data-featured="{{ $product->featured }}"
+                                        data-avatar="{{ asset('storage/' . $product->avatar) }}"
+                                        data-cover="{{ asset('storage/' . $product->cover) }}"
+                                        data-tags='@json($product->tags)'
+                                        data-category-title="{{ $product->category_title ?? '' }}"
+                                        data-sub-category-title="{{ $product->sub_category_title ?? '' }}"
+                                        data-brand="{{ $product->brand->title ?? '' }}"
+                                    >
+                                        <i class="ri-eye-line me-1"></i> View
+                                    </button>
+                        
                                     <!-- Edit Button -->
-                                    <a class="dropdown-item">
-                                        <button class="btn btn-sm btn-warning edit-product-btn fixed-width"
-                                            data-id="{{ $product->id }}"
-                                            data-title="{{ $product->title }}"
-                                            data-slug="{{ $product->slug }}"
-                                            data-description="{{ $product->description }}"
-                                            data-price="{{ $product->price }}"
-                                            data-quantity="{{ $product->quantity }}"
-                                            data-active="{{ $product->active }}"
-                                            data-featured="{{ $product->featured }}"
-                                            data-avatar="{{ asset('storage/' . $product->avatar) }}"
-                                            data-cover="{{ asset('storage/' . $product->cover) }}"
-                                            data-tags="{{ json_encode($product->tags) }}"
-                                            data-category="{{ $product->category_id }}"
-                                            data-sub-category="{{ $product->sub_category_id }}"
-                                            data-brand="{{ $product->brand_id }}"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#editProductModal">
-                                            <i class="ri-pencil-line me-1"></i> Edit
-                                        </button>
-                                    </a>
+                                    <button type="button" class="dropdown-item edit-product-btn"
+                                        data-id="{{ $product->id }}"
+                                        data-title="{{ $product->title }}"
+                                        data-slug="{{ $product->slug }}"
+                                        data-description="{{ $product->description }}"
+                                        data-price="{{ $product->price }}"
+                                        data-quantity="{{ $product->quantity }}"
+                                        data-active="{{ $product->active }}"
+                                        data-featured="{{ $product->featured }}"
+                                        data-avatar="{{ asset('storage/' . $product->avatar) }}"
+                                        data-cover="{{ asset('storage/' . $product->cover) }}"
+                                        data-tags='@json($product->tags)'
+                                        data-category="{{ $product->category_id }}"
+                                        data-sub-category="{{ $product->sub_category_id }}"
+                                        data-brand="{{ $product->brand_id }}"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editProductModal">
+                                        <i class="ri-pencil-line me-1"></i> Edit
+                                    </button>
+                        
+                                    <!-- Delete Button -->
+                                    <button type="button" class="dropdown-item delete-product-btn"
+                                        data-id="{{ $product->id }}"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteProductModal">
+                                        <i class="ri-delete-bin-line me-1"></i> Delete
+                                    </button>
                                 </div>
                             </div>
                         </td>
@@ -259,87 +263,96 @@
 <!-- View Product Modal -->
 <div class="modal fade" id="viewProductModal" tabindex="-1" aria-labelledby="viewProductModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="viewProductModalLabel">View Product</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content border-0 shadow-sm">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="viewProductModalLabel">Product Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <!-- Title Field -->
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    <p id="viewTitle"></p>
+            <div class="modal-body px-4 py-3">
+
+                <div class="row g-3">
+                    <!-- Title -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Title</label>
+                        <div class="border rounded p-2 bg-light" id="viewTitle"></div>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Price</label>
+                        <div class="border rounded p-2 bg-light" id="viewPrice"></div>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Quantity</label>
+                        <div class="border rounded p-2 bg-light" id="viewQuantity"></div>
+                    </div>
+
+                    <!-- Active -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Status</label>
+                        <div id="viewActive"></div>
+                    </div>
+
+                    <!-- Featured -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Featured</label>
+                        <div id="viewFeatured"></div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Category</label>
+                        <div class="border rounded p-2 bg-light" id="viewCategory"></div>
+                    </div>
+
+                    <!-- Sub Category -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Sub Category</label>
+                        <div class="border rounded p-2 bg-light" id="viewSubCategory"></div>
+                    </div>
+
+                    <!-- Brand -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Brand</label>
+                        <div class="border rounded p-2 bg-light" id="viewBrand"></div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Tags</label>
+                        <div class="border rounded p-2 bg-light" id="viewTags"></div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Description</label>
+                        <div class="border rounded p-2 bg-light" id="viewDescription" style="white-space: pre-wrap;"></div>
+                    </div>
+
+                    <!-- Avatar Image -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Avatar</label>
+                        <div class="border rounded p-2 text-center bg-light">
+                            <img id="viewAvatar" src="" alt="Avatar" class="img-thumbnail" style="max-height: 150px;">
+                        </div>
+                    </div>
+
+                    <!-- Cover Image -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Cover</label>
+                        <div class="border rounded p-2 text-center bg-light">
+                            <img id="viewCover" src="" alt="Cover" class="img-thumbnail" style="max-height: 150px;">
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Description Field -->
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <p id="viewDescription"></p>
-                </div>
-
-                <!-- Price Field -->
-                <div class="mb-3">
-                    <label class="form-label">Price</label>
-                    <p id="viewPrice"></p>
-                </div>
-
-                <!-- Quantity Field -->
-                <div class="mb-3">
-                    <label class="form-label">Quantity</label>
-                    <p id="viewQuantity"></p>
-                </div>
-
-                <!-- Active Field -->
-                <div class="mb-3">
-                    <label class="form-label">Active</label>
-                    <p id="viewActive"></p>
-                </div>
-
-                <!-- Featured Field -->
-                <div class="mb-3">
-                    <label class="form-label">Featured</label>
-                    <p id="viewFeatured"></p>
-                </div>
-
-                <!-- Avatar Field -->
-                <div class="mb-3">
-                    <label class="form-label">Avatar (Image)</label>
-                    <img id="viewAvatar" src="" alt="Avatar" class="img-square" style="width: 100px; height: 100px; object-fit: cover;">
-                </div>
-
-                <!-- Cover Field -->
-                <div class="mb-3">
-                    <label class="form-label">Cover (Image)</label>
-                    <img id="viewCover" src="" alt="Cover" class="img-square" style="width: 100px; height: 100px; object-fit: cover;">
-                </div>
-
-                <!-- Tags Field -->
-                <div class="mb-3">
-                    <label class="form-label">Tags</label>
-                    <p id="viewTags"></p>
-                </div>
-
-                <!-- Category Field -->
-                <div class="mb-3">
-                    <label class="form-label">Category</label>
-                    <p id="viewCategory"></p>
-                </div>
-
-                <!-- Sub Category Field -->
-                <div class="mb-3">
-                    <label class="form-label">Sub Category</label>
-                    <p id="viewSubCategory"></p>
-                </div>
-
-                <!-- Brand Field -->
-                <div class="mb-3">
-                    <label class="form-label">Brand</label>
-                    <p id="viewBrand"></p>
-                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Edit Product Modal -->
 <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
@@ -481,81 +494,70 @@
 
 <!-- JavaScript for View, Edit, and Delete Modals -->
 <script>
-    // View Modal
-    document.querySelectorAll('.view-product-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const title = button.getAttribute('data-title');
-            const slug = button.getAttribute('data-slug');
-            const description = button.getAttribute('data-description');
-            const price = button.getAttribute('data-price');
-            const quantity = button.getAttribute('data-quantity');
-            const active = button.getAttribute('data-active') === '1' ? 'Active' : 'Inactive';
-            const featured = button.getAttribute('data-featured') === '1' ? 'Yes' : 'No';
-            const avatar = button.getAttribute('data-avatar');
-            const cover = button.getAttribute('data-cover');
-            const tags = JSON.parse(button.getAttribute('data-tags')).join(', ');
-            const category = button.getAttribute('data-category');
-            const subCategory = button.getAttribute('data-sub-category');
-            const brand = button.getAttribute('data-brand');
-
-            document.getElementById('viewTitle').textContent = title;
-            document.getElementById('viewSlug').textContent = slug;
-            document.getElementById('viewDescription').textContent = description;
-            document.getElementById('viewPrice').textContent = price;
-            document.getElementById('viewQuantity').textContent = quantity;
-            document.getElementById('viewActive').textContent = active;
-            document.getElementById('viewFeatured').textContent = featured;
-            document.getElementById('viewAvatar').src = avatar;
-            document.getElementById('viewCover').src = cover;
-            document.getElementById('viewTags').textContent = tags;
-            document.getElementById('viewCategory').textContent = category;
-            document.getElementById('viewSubCategory').textContent = subCategory;
-            document.getElementById('viewBrand').textContent = brand;
+    document.addEventListener('DOMContentLoaded', function () {
+        // View Modal
+        document.querySelectorAll('.view-product-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                document.getElementById('viewTitle').textContent = this.dataset.title;
+                document.getElementById('viewDescription').textContent = this.dataset.description;
+                document.getElementById('viewPrice').textContent = this.dataset.price;
+                document.getElementById('viewQuantity').textContent = this.dataset.quantity;
+                document.getElementById('viewActive').textContent = this.dataset.active == 1 ? 'Active' : 'Inactive';
+                document.getElementById('viewFeatured').textContent = this.dataset.featured == 1 ? 'Featured' : 'Not Featured';
+                document.getElementById('viewAvatar').src = this.dataset.avatar;
+                document.getElementById('viewCover').src = this.dataset.cover;
+    
+                try {
+                    const tags = JSON.parse(this.dataset.tags);
+                    document.getElementById('viewTags').textContent = Array.isArray(tags) ? tags.join(', ') : '';
+                } catch (e) {
+                    document.getElementById('viewTags').textContent = '';
+                }
+    
+                document.getElementById('viewCategory').textContent = this.dataset.categoryTitle;
+                document.getElementById('viewSubCategory').textContent = this.dataset.subCategoryTitle;
+                document.getElementById('viewBrand').textContent = this.dataset.brand;
+            });
+        });
+    
+        // Edit Modal
+        document.querySelectorAll('.edit-product-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const form = document.getElementById('editProductForm');
+                form.action = `/products/${this.dataset.id}`;
+    
+                document.getElementById('editTitle').value = this.dataset.title;
+                document.getElementById('editDescription').value = this.dataset.description;
+                document.getElementById('editPrice').value = this.dataset.price;
+                document.getElementById('editQuantity').value = this.dataset.quantity;
+                document.getElementById('editActive').value = this.dataset.active;
+                document.getElementById('editFeatured').value = this.dataset.featured;
+                document.getElementById('editAvatarPreview').src = this.dataset.avatar;
+                document.getElementById('editCoverPreview').src = this.dataset.cover;
+    
+                try {
+                    const tags = JSON.parse(this.dataset.tags);
+                    document.getElementById('editTags').value = Array.isArray(tags) ? tags.join(', ') : '';
+                } catch (e) {
+                    document.getElementById('editTags').value = '';
+                }
+    
+                document.getElementById('editCategory').value = this.dataset.category;
+                document.getElementById('editSubCategory').value = this.dataset.subCategory;
+                document.getElementById('editBrand').value = this.dataset.brand;
+            });
+        });
+    
+        // Delete Modal
+        document.querySelectorAll('.delete-product-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const form = document.getElementById('deleteProductForm');
+                form.action = `/products/${this.dataset.id}`;
+            });
         });
     });
-
-    // Edit Modal
-    document.querySelectorAll('.edit-product-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const id = button.getAttribute('data-id');
-            const title = button.getAttribute('data-title');
-            const slug = button.getAttribute('data-slug');
-            const description = button.getAttribute('data-description');
-            const price = button.getAttribute('data-price');
-            const quantity = button.getAttribute('data-quantity');
-            const active = button.getAttribute('data-active');
-            const featured = button.getAttribute('data-featured');
-            const avatar = button.getAttribute('data-avatar');
-            const cover = button.getAttribute('data-cover');
-            const tags = JSON.parse(button.getAttribute('data-tags')).join(', ');
-            const category = button.getAttribute('data-category');
-            const subCategory = button.getAttribute('data-sub-category');
-            const brand = button.getAttribute('data-brand');
-
-            document.getElementById('editTitle').value = title;
-            document.getElementById('editSlug').value = slug;
-            document.getElementById('editDescription').value = description;
-            document.getElementById('editPrice').value = price;
-            document.getElementById('editQuantity').value = quantity;
-            document.getElementById('editActive').value = active;
-            document.getElementById('editFeatured').value = featured;
-            document.getElementById('editAvatarPreview').src = avatar;
-            document.getElementById('editCoverPreview').src = cover;
-            document.getElementById('editTags').value = tags;
-            document.getElementById('editCategory').value = category;
-            document.getElementById('editSubCategory').value = subCategory;
-            document.getElementById('editBrand').value = brand;
-            document.getElementById('editProductForm').action = `/dashboard/products/${id}`;
-        });
-    });
-
-    // Delete Modal
-    document.querySelectorAll('.delete-product-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const id = button.getAttribute('data-id');
-            document.getElementById('deleteProductForm').action = `/dashboard/products/${id}`;
-        });
-    });
-</script>
+    </script>
+    
+    
 
 @endsection

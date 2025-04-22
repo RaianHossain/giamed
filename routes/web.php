@@ -167,3 +167,11 @@ Route::get('/all-services', [ClientController::class, 'allServices'])->name('all
 Route::get('/store', [ClientController::class, 'store'])->name('store');
 
 Route::post('request-advice', [ClientController::class, 'requestAdvice'])->name('request-advice');
+
+Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
+
+// Product details route
+Route::get('/products/{id}/details', [ClientController::class, 'productDetails'])->name('product.details');
+
+// Subcategories by category route
+Route::get('/categories/{category}/subcategories', [ClientController::class, 'getSubcategoriesByCategory']);
