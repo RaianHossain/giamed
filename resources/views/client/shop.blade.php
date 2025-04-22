@@ -154,7 +154,7 @@
                                         <div class="product__content mb-20">
                                             <span class="pro-cat"><a href="#">{{ $product->category->title ?? 'N/A' }}</a></span>
                                             <h4 class="pro-title">
-                                                {{ $product->title }}
+                                                {{ $product->title }}</a>
                                             </h4>
                                             <div class="price">
                                                 <span>${{ $product->price }}</span>
