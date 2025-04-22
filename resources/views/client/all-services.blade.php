@@ -47,7 +47,7 @@
                                             </div>
                                             <div class="product__content text-center pt-30">
                                                 <span class="pro-cat"><a href="#">Service</a></span>
-                                                <h4 class="pro-title"><a href="{{ route('service-details', ['slug' => $service->slug]) }}">Medidove Product</a></h4>
+                                                <h4 class="pro-title"><a href="{{ route('service-details', ['slug' => $service->slug]) }}">{{ $service->title }}</a></h4>
                                                 {{-- <div class="price">
                                                     <span>$95.00</span>
                                                     <span class="old-price">$120.00</span>

@@ -102,7 +102,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>            
             
             <div class="row">
                 <div class="col-12">
@@ -115,7 +115,14 @@
                                     <div class="product mb-40">
                                         <div class="product__img">
                                             {{-- prduct image --}}
-                                            <img src="{{ asset('storage/' . $product->avatar) }}" alt="{{ $product->title }}">
+                                            {{-- <img src="{{ asset('storage/' . $product->avatar) }}" alt="{{ $product->title }}" data-toggle="modal" data-target="#pruductModal" style="cursor: pointer;"> --}}
+                                            <div class="product__img">
+                                                <img 
+                                                    id="productImage"
+                                                    src="{{ asset('storage/' . $product->avatar) }}" 
+                                                    alt="{{ $product->title }}"                                                    
+                                                >
+                                            </div>
                                             <div class="product-action text-center">
                                                 <a href="#"><i class="fas fa-shopping-cart"></i></a>
                                                 <a href="#"><i class="fas fa-heart"></i></a>
@@ -126,7 +133,16 @@
                                         </div>
                                         <div class="product__content text-center pt-30">
                                             <span class="pro-cat"><a href="#">{{ $product->category->title ?? 'N/A' }}</a></span>
-                                            <h4 class="pro-title">                                                
+                                            <h4 class="pro-title" 
+                                                style="cursor: pointer;" 
+                                                data-toggle="modal" 
+                                                data-target="#productModal"
+                                                data-title="{{ $product->title }}"
+                                                data-image="{{ asset('storage/' . $product->avatar) }}"
+                                                data-category="{{ $product->category->title ?? 'N/A' }}"
+                                                data-price="{{ $product->price }}"
+                                                data-description="{{ $product->description }}"
+                                            >
                                                 {{ $product->title }}
                                             </h4>
                                             <div class="price">
@@ -145,7 +161,7 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="product">
                                         <div class="product__img">
-                                            <img src="{{ asset('storage/' . $product->avatar) }}" alt="{{ $product->title }}">
+                                            <img src="{{ asset('storage/' . $product->avatar) }}" alt="{{ $product->title }}" data-toggle="modal" data-target="#pruductModal" style="cursor: pointer;">
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +169,7 @@
                                     <div class="product-list-content pt-10">
                                         <div class="product__content mb-20">
                                             <span class="pro-cat"><a href="#">{{ $product->category->title ?? 'N/A' }}</a></span>
-                                            <h4 class="pro-title">
+                                            <h4 class="pro-title" data-toggle="modal" data-target="#pruductModal" style="cursor: pointer;">
                                                 {{ $product->title }}</a>
                                             </h4>
                                             <div class="price">
@@ -186,27 +202,35 @@
         </div>
     </section>
     <!-- shop-banner-area end -->
+
+    <!-- Product Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="productModalLabel">Product Title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body row">
+            <div class="col-md-6 text-center">
+                <img id="modalProductImage" src="" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h4 id="modalProductCategory"></h4>
+                <h5 class="text-primary" id="modalProductPrice"></h5>
+                <p id="modalProductDescription"></p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+  
 @endsection
 
 @push('styles')
-<style>
-    /* Product Modal Styles */
-    .modal-lg .modal-content {
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .modal-body img {
-        width: 100%;
-        height: auto;
-        border-radius: 5px;
-    }
-
-    .modal-title {
-        font-weight: 700;
-        color: #333;
-    }
-
+<style>    
     /* Filter Card Styles */
     .filter-card {
         border: none;
@@ -289,3 +313,13 @@
     }
 </style>
 @endpush
+
+{{-- @push('scripts') --}}
+<script>
+    alert("Check");
+    document.getElementById('productImage').addEventListener('click', function() {
+        const productId = this.getAttribute('data-product-id');
+        alert("check");
+    }
+</script>
+{{-- @endpush --}}
