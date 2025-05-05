@@ -28,7 +28,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="#" class="btn mt-40">
+            <a href="{{ route('make-appointment') }}" class="btn mt-40">
                 Make Appointment
             </a>
         </div>

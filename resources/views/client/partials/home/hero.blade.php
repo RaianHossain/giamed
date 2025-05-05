@@ -1,3 +1,9 @@
+<style>
+    @media (max-width: 768px) {
+        #hero-title {font-size: 2.5rem;}
+    }
+</style>
+
 <section class="hero-area">
     <div class="hero-slider">
         <div class="slider-active">
@@ -11,7 +17,7 @@
                                     <h5 data-animation="fadeInUp" data-delay=".2s" style="color: white;">
                                         Dialysis Solutions for Less
                                     </h5>
-                                    <h1 data-animation="fadeInUp" data-delay=".4s" style="color: white;">
+                                    <h1 data-animation="fadeInUp" data-delay=".4s" style="color: white;" id="hero-title">
                                         Advanced Technology in Healthcare
                                     </h1>
                                     <p data-animation="fadeInUp" data-delay=".6s" style="color: white;">

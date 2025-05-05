@@ -21,7 +21,7 @@
             <!-- Section Button -->
             <div class="col-xl-6 col-lg-5">
                 <div class="section-button text-right d-none d-lg-block pt-80">
-                    <a data-animation="fadeInLeft" data-delay=".6s" href="appoinment.html" class="btn btn-icon ml-0">
+                    <a data-animation="fadeInLeft" data-delay=".6s" href="{{ route('make-appointment') }}" class="btn btn-icon ml-0">
                         <span>+</span>Make Appointment
                     </a>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="team-box text-center mb-60">
                     <div class="team-thumb mb-45 position-relative">
                         <img src="{{ asset('assets/client/img/important/brands/fresenius-image.jpg') }}" alt="" class="img-fluid">
-                        <a class="team-link" href="doctor-details.html">+</a>
+                        {{-- <a class="team-link" href="doctor-details.html">+</a> --}}
                     </div>
                     <div class="team-content">
                         <h3>Fresenius</h3>
@@ -48,7 +48,7 @@
                 <div class="team-box text-center mb-60">
                     <div class="team-thumb mb-45 position-relative">
                         <img src="{{ asset('assets/client/img/important/brands/bbraun-image.jpg') }}" alt="" class="img-fluid">
-                        <a class="team-link" href="doctor-details.html">+</a>
+                        {{-- <a class="team-link" href="doctor-details.html">+</a> --}}
                     </div>
                     <div class="team-content">
                         <h3>B. Braun</h3>
@@ -61,7 +61,7 @@
                 <div class="team-box text-center mb-60">
                     <div class="team-thumb mb-45 position-relative">
                         <img src="{{ asset('assets/client/img/important/brands/baxter-image.jpg') }}" alt="" class="img-fluid">
-                        <a class="team-link" href="doctor-details.html">+</a>
+                        {{-- <a class="team-link" href="doctor-details.html">+</a> --}}
                     </div>
                     <div class="team-content">
                         <h3>Baxter</h3>
@@ -74,7 +74,7 @@
                 <div class="team-box text-center mb-60">
                     <div class="team-thumb mb-45 position-relative">
                         <img src="{{ asset('assets/client/img/important/brands/ameriWater-image.jpg') }}" alt="" class="img-fluid">
-                        <a class="team-link" href="doctor-details.html">+</a>
+                        {{-- <a class="team-link" href="doctor-details.html">+</a> --}}
                     </div>
                     <div class="team-content">
                         <h3>AmeriWater</h3>

@@ -5,9 +5,9 @@
                 <div class="about-left-side pos-rel mb-30">
                     <div class="about-front-img pos-rel">
                         <img src="{{ asset('assets/client/img/about/about-img.jpg') }}" alt="About Us">
-                        <a class="popup-video about-video-btn white-video-btn" href="https://www.youtube.com/watch?v=I3u3lFA9GX4">
+                        {{-- <a class="popup-video about-video-btn white-video-btn" href="https://www.youtube.com/watch?v=I3u3lFA9GX4">
                             <i class="fas fa-play"></i>
-                        </a>
+                        </a> --}}
                     </div>
                     <div class="about-shape">
                         <img src="{{ asset('assets/client/img/about/about-shape.png') }}" alt="About Shape">

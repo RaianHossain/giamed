@@ -2,20 +2,9 @@
   "menu": [
     {
       "url": "/dashboard",
-      "name": "Content",
-      "icon": "menu-icon tf-icons ri-home-smile-line",
-      "slug": "dashboard",
-      "badge": [
-        "danger",
-        "5"
-      ],
-      "submenu": [
-        {
-          "url": "/dashboard/services",
-          "name": "Services",
-          "slug": "content-services"
-        }
-      ]
+      "name": "Services",
+      "icon": "menu-icon tf-icons ri-box-3-line",
+      "slug": "app-email"
     },
     {
       "url": "/dashboard/categories",
@@ -38,6 +27,12 @@
     {
       "url": "/dashboard/products",
       "name": "Products",
+      "icon": "menu-icon tf-icons ri-box-3-line",
+      "slug": "app-email"
+    },
+    {
+      "url": "/dashboard/appointments",
+      "name": "Appointments",
       "icon": "menu-icon tf-icons ri-box-3-line",
       "slug": "app-email"
     }

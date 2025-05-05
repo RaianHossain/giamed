@@ -37,5 +37,5 @@
     </div>
 
     <!-- Free Downloads Section -->
-    @include('client.partials.service-details.free-downloads')
+    {{-- @include('client.partials.service-details.free-downloads') --}}
 </article>

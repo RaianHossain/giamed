@@ -27,9 +27,11 @@
         <!-- trust-us-area end -->
 
         <!-- blog-area start -->
-        @include('client.partials.home.home-blogs');
+        {{-- @include('client.partials.home.home-blogs'); --}}
         <!-- blog-area end -->
-
+        
+        {{-- <div style='height: 200px; background-color: rgba(19, 35, 47, 0.94); padding-top: 0px !important; margin-top: 0px !important;'></div> --}}
+        <div style='height: 200px;'></div>
         <!-- Footer -->
         @include('client.partials.footer')
 

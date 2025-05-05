@@ -1,4 +1,4 @@
-<section class="cta-area position-relative pt-115 pb-120" style="background-image: url('{{ asset('img/slider/slider-bg-1.jpg') }}');">
+<section class="cta-area position-relative pt-115 pb-120">
     <div class="container">
         <div class="row">
             <div class="col-xl-10 offset-xl-1 col-md-12">
@@ -13,7 +13,7 @@
 
                     <!-- Section Button -->
                     <div class="section-button section-button-left">
-                        <a data-animation="fadeInLeft" data-delay=".6s" href="appoinment.html" class="btn btn-icon btn-icon-green ml-0">
+                        <a data-animation="fadeInLeft" data-delay=".6s" href="{{ route('make-appointment') }}" class="btn btn-icon btn-icon-green ml-0">
                             <span>+</span>Get a Consultation
                         </a>
                     </div>

@@ -42,7 +42,7 @@
                                 Executives
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a
                                 class="nav-link"
                                 id="pills-profile-tab"
@@ -54,7 +54,7 @@
                             >
                                 Technical
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
@@ -81,20 +81,16 @@
                                     <div class="pricing-content">
                                         <h3>Gia Ben-Hur</h3>
                                         <p>
-                                            Ut enim ad minim veniam,
-                                            quis istomw nostrud
-                                            exercitation ullamco laboris
-                                            nisi ut aliquip ex ea
-                                            commodo.
+                                            Founder & Chief Executive Officer
                                         </p>
-                                        <a
+                                        {{-- <a
                                             data-animation="fadeInLeft"
                                             data-delay=".6s"
                                             href="#"
                                             class="btn btn-icon ml-0"
                                         >
                                             <span>+</span>Know More
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -110,20 +106,16 @@
                                     <div class="pricing-content">
                                         <h3>Ken Brana</h3>
                                         <p>
-                                            Ut enim ad minim veniam,
-                                            quis istomw nostrud
-                                            exercitation ullamco laboris
-                                            nisi ut aliquip ex ea
-                                            commodo.
+                                            Head of Operations
                                         </p>
-                                        <a
+                                        {{-- <a
                                             data-animation="fadeInLeft"
                                             data-delay=".6s"
                                             href="#"
                                             class="btn btn-icon ml-0"
                                         >
                                             <span>+</span>Know More
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -139,20 +131,16 @@
                                     <div class="pricing-content">
                                         <h3>Shannon Houts</h3>
                                         <p>
-                                            Ut enim ad minim veniam,
-                                            quis istomw nostrud
-                                            exercitation ullamco laboris
-                                            nisi ut aliquip ex ea
-                                            commodo.
+                                            Head of Inventry Control
                                         </p>
-                                        <a
+                                        {{-- <a
                                             data-animation="fadeInLeft"
                                             data-delay=".6s"
                                             href="#"
                                             class="btn btn-icon ml-0"
                                         >
                                             <span>+</span>Know More
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </div>
                             </div>

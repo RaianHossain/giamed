@@ -552,7 +552,7 @@
         document.querySelectorAll('.delete-product-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const form = document.getElementById('deleteProductForm');
-                form.action = `/products/${this.dataset.id}`;
+                form.action = `products/${this.dataset.id}`;
             });
         });
     });

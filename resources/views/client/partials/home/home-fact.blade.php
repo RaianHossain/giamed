@@ -22,7 +22,7 @@
 
             <!-- Right Side -->
             <div class="col-lg-6 col-lg-6 col-md-8">
-                <div class="cta-satisfied">
+                <div class="cta-satisfied" id="satisfied">
                     <!-- Single Satisfied -->
                     <div class="single-satisfied mb-50">
                         <h1>30+</h1>
@@ -49,3 +49,22 @@
         </div>
     </div>
 </section>
+
+<script>
+    function handleResponsiveClass() {
+    const element = document.getElementById('satisfied'); // change to your target element
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    if (isMobile) {
+        element.classList.remove('cta-satisfied');
+    } else {
+        element.classList.add('cta-satisfied');
+    }
+}
+
+    // Run once on page load
+    handleResponsiveClass();
+
+    // Re-run on resize
+    window.addEventListener('resize', handleResponsiveClass);
+</script>

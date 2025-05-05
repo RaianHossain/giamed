@@ -49,28 +49,28 @@
                 </div>
 
                 <!-- Quick Links -->
-                <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="col-xl-8 col-lg-12 col-md-12">
                     <div class="footer-widget mb-40">
                         <div class="footer-title">
                             <h3>Quick Links</h3>
                         </div>
                         <div class="footer-menu footer-menu-2">
                             <ul>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="products.html">Our Products</a></li>
-                                <li><a href="services.html">Services</a></li>
-                                <li><a href="dlr-service.html">Depot Level Repair</a></li>
-                                <li><a href="support.html">Customer Support</a></li>
-                                <li><a href="news.html">Latest News</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                                <li><a href="shop.html">Shop</a></li>
+                                <li><a href="{{ route('about-us') }}">About Us</a></li>
+                                <li><a href="{{ route('shop') }}">Our Products</a></li>
+                                <li><a href="{{ route('all-services') }}">Services</a></li>
+                                <li><a href="{{ route('service-details', ['slug' => 'depot-level-repair']) }}">Depot Level Repair</a></li>
+                                <li><a href="{{ route('make-appointment') }}">Customer Support</a></li>
+                                {{-- <li><a href="news.html">Latest News</a></li> --}}
+                                {{-- <li><a href="contact.html">Contact Us</a></li> --}}
+                                {{-- <li><a href="shop.html">Shop</a></li> --}}
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <!-- Recent News & Updates -->
-                <div class="col-xl-4 col-lg-6 col-md-6">
+                {{-- <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="footer-widget mb-40">
                         <div class="footer-title">
                             <h3>Latest Updates</h3>
@@ -117,7 +117,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

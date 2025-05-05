@@ -70,7 +70,64 @@ class ClientController extends Controller
         $subCategories = \App\Models\SubCategory::all();
         $brands = \App\Models\Brand::all();
 
+        // dd($products[0]->category->title);
+
         return view('client.shop', compact('products', 'categories', 'subCategories', 'brands'));
+    }
+
+    public function shop_api(Request $request)
+    {
+        $query = Product::query();
+
+        // Apply filters (AND logic)
+        if ($request->filled('name')) {
+            $query->where('title', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Match frontend's camelCase 'subCategory' or lowercase 'subcategory' (choose one)
+        if ($request->filled('subCategory')) {  // Frontend sends 'subCategory'
+            $query->where('sub_category_id', $request->subCategory);
+        }
+        // OR if frontend sends 'subcategory':
+        // if ($request->filled('subcategory')) {
+        //     $query->where('sub_category_id', $request->subcategory);
+        // }
+
+        if ($request->filled('brand')) {
+            $query->where('brand_id', $request->brand);
+        }
+
+        // Pagination
+        $page = $request->input('page', 1);
+        $perPage = 9;
+        $paginator = $query->with(['category', 'subCategory', 'brand'])->paginate($perPage, ['*'], 'page', $page);
+
+        // Calculate displayed range
+        $from = (($paginator->currentPage() - 1) * $paginator->perPage()) + 1;
+        $to = min($paginator->currentPage() * $paginator->perPage(), $paginator->total());
+
+        // Response structure
+        $response = [
+            'data' => $paginator->items(),
+            'pagination' => [
+                'current_page' => $paginator->currentPage(),
+                'per_page' => $paginator->perPage(),
+                'total' => $paginator->total(),
+                'from' => $from,
+                'to' => $to,
+                'showing' => "$from-$to of {$paginator->total()}",
+                'has_more_pages' => $paginator->hasMorePages(),
+                'last_page' => $paginator->lastPage(),
+                'next_page_url' => $paginator->nextPageUrl(),
+                'prev_page_url' => $paginator->previousPageUrl(),
+            ]
+        ];
+
+        return response()->json($response);
     }
 
     
@@ -93,6 +150,10 @@ class ClientController extends Controller
     public function getSubcategoriesByCategory(Category $category)
     {
         return response()->json($category->subCategories);
+    }
+
+    public function makeAppointmentPage() {
+        return view('client.make-appointment');
     }
 
 }

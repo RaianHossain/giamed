@@ -79,12 +79,8 @@
                         </div>
                         <div class="footer-menu">
                             <ul>
-                                <li><a href="#">Dialysis Machines</a></li>
-                                <li><a href="#">Dialysis Consumables</a></li>
-                                <li><a href="#">Renal Care Accessories</a></li>
-                                <li><a href="#">Medical Devices</a></li>
-                                <li><a href="#">Patient Monitoring</a></li>
-                                <li><a href="#">Hospital Equipment</a></li>
+                                <li><a href="{{ route('shop') }}">Electronic Parts</a></li>
+                                <li><a href={{ route('shop') }}>Hydraulic Parts</a></li>
                             </ul>
                         </div>
                     </div>
@@ -96,12 +92,9 @@
                         </div>
                         <div class="footer-menu">
                             <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Our Products</a></li>
-                                <li><a href="#">Customer Support</a></li>
-                                <li><a href="#">FAQs</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Request a Quote</a></li>
+                                <li><a href="{{ route('about-us') }}">About Us</a></li>
+                                <li><a href="{{ route('shop') }}">Our Products</a></li>
+                                <li><a href="{{ route('make-appointment') }}">Customer Support</a></li>
                             </ul>
                         </div>
                     </div>
