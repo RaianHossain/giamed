@@ -12,7 +12,21 @@ class SubCategoryController extends Controller
     public function index()
     {
         $sub_categories = SubCategory::all();
-        return view('content.sub-categories.index', compact('sub_categories'));
+        return view('adminview.subcategories.index', compact('sub_categories'));
+    }
+
+    public function create()
+    {
+        return view('adminview.subcategories.create');
+    }
+
+    public function edit($id)
+    {
+        // Find the category by ID
+        $category = SubCategory::findOrFail($id);
+
+        // Return the edit view with the category data
+        return view('adminview.subcategories.edit', compact('category'));
     }
 
     public function store(Request $request)

@@ -12,8 +12,14 @@ class AppointmentController extends Controller
     {
         $appointments = Appointment::all();
         $total_appointments = $appointments->count();
-        return view('appointments.index', compact('appointments', 'total_appointments'));
+        return view('adminview.appointments.index', compact('appointments', 'total_appointments'));
     }
+
+    public function edit($id) {
+        $appointment = Appointment::findOrFail($id);
+        return view('adminview.appointments.edit', compact('appointment'));
+    }
+
 
     // Show create form
     public function create()
@@ -56,18 +62,57 @@ class AppointmentController extends Controller
         return response()->json(['success' => true, 'message' => 'Appointment created successfully.']);
     }
 
+    public function updateStatus(Request $request)
+    {
+        $updates = $request->input('updates');
+
+        foreach ($updates as $update) {
+            $appointment = Appointment::findOrFail($update['id']);
+            $appointment->status = $update['status'];
+            $appointment->save();
+        }
+
+        return response()->json(['success' => true, 'message' => 'Statuses updated successfully.']);
+    }
+
+
+
+    // public function update(Request $request, $appointmentId)
+    // {
+    //     $request->validate([
+    //         'status' => 'required|in:pending,confirmed,canceled',
+    //     ]);
+
+    //     $appointment = Appointment::findOrFail($appointmentId);
+    //     $appointment->status = $request->status;
+    //     $appointment->save();
+
+    //     return response()->json(['success' => true, 'message' => 'Status updated successfully.']);
+    // }
+
     public function update(Request $request, $appointmentId)
     {
         $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:15',
+            'date' => 'required|date',
+            'time' => 'required|date_format:H:i',
+            'special_request' => 'nullable|string|max:255',
             'status' => 'required|in:pending,confirmed,canceled',
         ]);
 
         $appointment = Appointment::findOrFail($appointmentId);
+        $appointment->name = $request->name;
+        $appointment->phone = $request->phone;
+        $appointment->date = $request->date;
+        $appointment->time = $request->time;
+        $appointment->special_request = $request->special_request;
         $appointment->status = $request->status;
         $appointment->save();
 
-        return response()->json(['success' => true, 'message' => 'Status updated successfully.']);
+        return redirect()->route('dashboard-appointments')->with('success', 'Appointment updated successfully.');
     }
+
 
 
 

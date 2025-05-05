@@ -15,11 +15,17 @@ class ServiceController extends Controller
         $services = Service::all();
         $total_services = $services->count();
         $active_services = $services->where('active', 1)->count();
-        return view('content.services.index', compact('services', 'total_services', 'active_services'));
+        return view('adminview.services.index', compact('services', 'total_services', 'active_services'));
     }
 
     public function create() {
-        return view('content.services.create');
+        return view('adminview.services.create');
+    }
+
+    public function edit($id)
+    {
+        $service = Service::findOrFail($id);
+        return view('adminview.services.edit', compact('service'));
     }
     
     public function store(Request $request)

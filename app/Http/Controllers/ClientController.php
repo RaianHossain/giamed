@@ -156,4 +156,8 @@ class ClientController extends Controller
         return view('client.make-appointment');
     }
 
+    public function check() {
+        return view('adminview.check');
+    }
+
 }

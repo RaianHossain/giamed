@@ -11,7 +11,14 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('content.categories.index', compact('categories'));
+        // return view('content.categories.index', compact('categories'));
+        // dd($categories);
+        return view('adminview.categories.index', compact('categories'));
+    }
+
+    public function create()
+    {
+        return view('adminview.categories.create');
     }
 
     public function store(Request $request)
@@ -31,6 +38,15 @@ class CategoryController extends Controller
 
         // Redirect back to the categories index page with a success message
         return redirect()->route('dashboard-categories')->with('success', 'Category created successfully!');
+    }
+
+    public function edit($id)
+    {
+        // Find the category by ID
+        $category = Category::findOrFail($id);
+
+        // Return the edit view with the category data
+        return view('adminview.categories.edit', compact('category'));
     }
 
     public function update(Request $request, $id)

@@ -13,27 +13,49 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     public function index()
-{
-    $products = Product::all();
-    $categories = Category::all();
-    $subCategories = SubCategory::all();
-    $brands = Brand::all();
+    {
+        $products = Product::all();
+        $categories = Category::all();
+        $subCategories = SubCategory::all();
+        $brands = Brand::all();
 
-    // Optionally eager load category relationship
-    foreach ($products as $product) {
-        $category = $categories->firstWhere('id', $product->category_id);
-        $product->category_title = $category ? $category->title : 'Unknown';
+        // Optionally eager load category relationship
+        foreach ($products as $product) {
+            $category = $categories->firstWhere('id', $product->category_id);
+            $product->category_title = $category ? $category->title : 'Unknown';
 
-        $subCategory = $subCategories->firstWhere('id', $product->sub_category_id);
-        $product->sub_category_title = $subCategory ? $subCategory->title : 'Unknown';
+            $subCategory = $subCategories->firstWhere('id', $product->sub_category_id);
+            $product->sub_category_title = $subCategory ? $subCategory->title : 'Unknown';
 
-        $brand = $brands->firstWhere('id', $product->brand_id);
-        $product->brand_title = $brand ? $brand->title : 'Unknown';
+            $brand = $brands->firstWhere('id', $product->brand_id);
+            $product->brand_title = $brand ? $brand->title : 'Unknown';
+        }
+
+        // dd($products);
+        return view('adminview.products.index', compact('products', 'categories', 'subCategories', 'brands'));
     }
 
-    // dd($products);
-    return view('content.products.index', compact('products', 'categories', 'subCategories', 'brands'));
-}
+    public function create()
+    {
+        $products = Product::all();
+        $categories = Category::all();
+        $subCategories = SubCategory::all();
+        $brands = Brand::all();
+
+
+        return view('adminview.products.create', compact('categories', 'subCategories', 'brands'));
+    }
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        $subCategories = SubCategory::all();
+        $brands = Brand::all();
+
+        // dd($product);
+        return view('adminview.products.edit', compact('product', 'categories', 'subCategories', 'brands'));
+    }
 
 
 

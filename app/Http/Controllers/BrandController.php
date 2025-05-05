@@ -18,7 +18,18 @@ class BrandController extends Controller
         // Count total brands
         $total_brands = $brands->count();
 
-        return view('content.brands.index', compact('brands', 'total_brands'));
+        return view('adminview.brands.index', compact('brands', 'total_brands'));
+    }
+
+    public function create()
+    {
+        return view('adminview.brands.create');
+    }
+
+    public function edit($id)
+    {
+        $brand = Brand::findOrFail($id);
+        return view('adminview.brands.edit', compact('brand'));
     }
 
     public function store(Request $request)
