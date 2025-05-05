@@ -1,4 +1,5 @@
 @extends('layouts/newAdminLayout')
+@section('title', 'Appointments')
 
 @section('content')
 <main>

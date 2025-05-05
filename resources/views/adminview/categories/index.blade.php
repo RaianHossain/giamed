@@ -1,4 +1,6 @@
 @extends('layouts/newAdminLayout')
+@section('title', 'Categories')
+
 @section('content')
 <main>
     <div class="container-fluid px-4">
