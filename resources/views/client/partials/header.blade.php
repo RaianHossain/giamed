@@ -55,7 +55,7 @@
                                     <a href="{{ route('all-services') }}">Services</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('shop') }}">Shop +</a>
+                                    <a href="{{ route('shop') }}">Product</a>
                                     {{-- <ul class="submenu">
                                         <li>
                                             <a href="{{ route('shop') }}">Shop Page</a>

@@ -10,7 +10,7 @@
                             </div>
                             <div class="emmergency-call-text f-left">
                                 <h6>Customer Support</h6>
-                                <span>+1 (888) 123-4567</span>
+                                <span>+1 (414) 916-0533</span>
                             </div>
                         </div>
                         <div class="footer-logo mb-35">
@@ -58,15 +58,16 @@
                             <ul>
                                 <li>
                                     <i class="far fa-envelope"></i>
-                                    support@giamedicalusa.com
+                                    GIA@GIAMedical.com
                                 </li>
-                                <li>
+                                <!--
                                     <i class="far fa-globe"></i>
                                     www.giamedicalusa.com
                                 </li>
+				-->
                                 <li>
                                     <i class="far fa-map-marker-alt"></i>
-                                    1234 Medical Blvd, Los Angeles, CA
+                                    6909 Center St, Highland, CA, United States, California
                                 </li>
                             </ul>
                         </div>

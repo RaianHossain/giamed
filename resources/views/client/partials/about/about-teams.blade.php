@@ -131,7 +131,7 @@
                                     <div class="pricing-content">
                                         <h3>Shannon Houts</h3>
                                         <p>
-                                            Head of Inventry Control
+                                            Head of Inventory Control
                                         </p>
                                         {{-- <a
                                             data-animation="fadeInLeft"

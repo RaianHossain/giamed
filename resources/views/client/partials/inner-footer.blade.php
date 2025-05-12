@@ -33,15 +33,15 @@
                             <ul>
                                 <li>
                                     <i class="fas fa-envelope"></i>
-                                    support@giamedicalusa.com
+                                    GIA@GIAMedical.com
                                 </li>
-                                <li>
+                               <!-- <li>
                                     <i class="fas fa-globe"></i>
                                     www.giamedicalusa.com
-                                </li>
+                                </li> -->
                                 <li>
                                     <i class="fas fa-map-marker-alt"></i>
-                                    227 Marion Street, Columbia, USA
+                                    6909 Center St, Highland, CA, United States, California
                                 </li>
                             </ul>
                         </div>

@@ -25,7 +25,7 @@
                                     </p>
                                 </div>
                                 <div class="hero-slider-btn">
-                                    <a data-animation="fadeInLeft" data-delay=".6s" href="#" class="btn btn-icon ml-0">
+                                    <a data-animation="fadeInLeft" data-delay=".6s" href="{{ route('shop') }}" class="btn btn-icon ml-0">
                                         <span>+</span>Explore Our Products
                                     </a>
                                     {{-- <a data-animation="fadeInRight" data-delay="1.0s" href="https://www.youtube.com/watch?v=XWHQT3qJTFk" class="play-btn popup-video">

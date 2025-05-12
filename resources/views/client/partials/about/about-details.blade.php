@@ -4,7 +4,7 @@
             <div class="col-xl-6 col-lg-5">
                 <div class="about-left-side pos-rel mb-30">
                     <div class="about-front-img pos-rel">
-                        <img src="{{ asset('assets/client/img/about/about-img.jpg') }}" alt="About Us">
+                        <img src="{{ asset('assets/images/about-us.jpeg') }}" alt="About Us">
                         {{-- <a class="popup-video about-video-btn white-video-btn" href="https://www.youtube.com/watch?v=I3u3lFA9GX4">
                             <i class="fas fa-play"></i>
                         </a> --}}
