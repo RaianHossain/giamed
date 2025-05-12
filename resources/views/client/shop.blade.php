@@ -399,10 +399,7 @@
                             <div class="product__content text-center pt-30">
                                 <span class="pro-cat"><a href="#">${product.category?.title || 'Uncategorized'}</a></span>
                                 <h4 class="pro-title">${product.title}</h4>
-                                <div class="price">
-                                    <span>$${product.price}</span>
-                                    ${product.old_price ? `<span class="old-price">$${product.old_price}</span>` : ''}
-                                </div>
+                                
                             </div>
                         </div>
                     `;
@@ -427,10 +424,7 @@
                                 <div class="product__content mb-20">
                                     <span class="pro-cat">${product.category?.title || 'Uncategorized'}</span>
                                     <h4 class="pro-title">${product.title}</h4>
-                                    <div class="price">
-                                        <span>$${product.price}</span>
-                                        ${product.old_price ? `<span class="old-price">$${product.old_price}</span>` : ''}
-                                    </div>
+                                    
                                 </div>
                                 <p>${product.description || 'No description available.'}</p>
                                 <div class="product-action-list">
@@ -505,10 +499,7 @@
                         </div>
                         <div class="col-md-6">
                             <h5>${product.title}</h5>
-                            <p>${product.description || 'No description available.'}</p>
-                            <p><strong>Price:</strong> $${product.price}</p>
-                            ${product.old_price ? `<p><strong>Old Price:</strong> $${product.old_price}</p>` : ''}
-                            <p><strong>Quantity:</strong> ${product.quantity}</p>
+                            <p>${product.description || 'No description available.'}</p>                            
                             ${Array.isArray(product.tags) && product.tags.length 
                                 ? `<p><strong>Tags:</strong> ${product.tags.join(', ')}</p>` 
                                 : ''}
@@ -563,3 +554,18 @@
         });
     </script>    
 @endsection
+
+{{-- <div class="price">
+    <span>$${product.price}</span>
+    ${product.old_price ? `<span class="old-price">$${product.old_price}</span>` : ''}
+</div> --}}
+
+{{-- <div class="price">
+    <span>$${product.price}</span>
+    ${product.old_price ? `<span class="old-price">$${product.old_price}</span>` : ''}
+</div> --}}
+
+
+{{-- <p><strong>Price:</strong> $${product.price}</p>
+${product.old_price ? `<p><strong>Old Price:</strong> $${product.old_price}</p>` : ''}
+<p><strong>Quantity:</strong> ${product.quantity}</p> --}}

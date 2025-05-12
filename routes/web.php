@@ -1,9 +1,8 @@
-
-
 <?php
 
-use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\layouts\WithoutMenu;
 use App\Http\Controllers\layouts\WithoutNavbar;
@@ -55,9 +54,11 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 
-// Main Page Route
-// Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
-Route::get('/dashboard', [ServiceController::class, 'index'])->name('dashboard');
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
@@ -120,71 +121,79 @@ Route::get('/form/layouts-horizontal', [HorizontalForm::class, 'index'])->name('
 // tables
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
 
+Route::middleware('auth')->group(function () {    
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-//----app admin routes----
-Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('dashboard-services');
-Route::get('/dashboard/services/create', [ServiceController::class, 'create'])->name('dashboard-services-create');
-Route::get('/dashboard/services/edit/{id}', [ServiceController::class, 'edit'])->name('dashboard-services-edit');
-Route::post('/dashboard/services', [ServiceController::class, 'store'])->name('dashboard-services-store');
-Route::put('/dashboard/services/{serviceId}', [ServiceController::class, 'update'])->name('dashboard-services-update');
-Route::delete('/dashboard/services/{serviceId}', [ServiceController::class, 'destroy'])->name('dashboard-services-destroy');
+    //my routes
+    Route::get('/dashboard', [ServiceController::class, 'index'])->name('dashboard');
 
-//appointments Routes
-Route::get('/dashboard/appointments', [AppointmentController::class, 'index'])->name('dashboard-appointments');
-Route::get('/dashboard/appointments/edit/{id}', [AppointmentController::class, 'edit'])->name('dashboard-appointments-edit');
-Route::get('/dashboard/appointments/create', [AppointmentController::class, 'create'])->name('dashboard-appointments-create');
-Route::post('/dashboard/appointments', [AppointmentController::class, 'store'])->name('dashboard-appointments-store');
-Route::post('/api/appointments', [AppointmentController::class, 'store_api'])->name('dashboard-appointments-store-api');
-// Route::put('/dashboard/appointments/{appointment}', [AppointmentController::class, 'update'])->name('dashboard-appointments-update');
-Route::delete('/dashboard/appointments/{id}', [AppointmentController::class, 'destroy'])->name('dashboard-appointments-destroy');
-Route::post('/dashboard/appointments/status', [AppointmentController::class, 'updateStatus'])->name('dashboard-appointments-update-status');
-Route::put('/dashboard/appointments/{id}', [AppointmentController::class, 'update'])->name('dashboard-appointments-update');
+    //----app admin routes----
+    Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('dashboard-services');
+    Route::get('/dashboard/services/create', [ServiceController::class, 'create'])->name('dashboard-services-create');
+    Route::get('/dashboard/services/edit/{id}', [ServiceController::class, 'edit'])->name('dashboard-services-edit');
+    Route::post('/dashboard/services', [ServiceController::class, 'store'])->name('dashboard-services-store');
+    Route::put('/dashboard/services/{serviceId}', [ServiceController::class, 'update'])->name('dashboard-services-update');
+    Route::delete('/dashboard/services/{serviceId}', [ServiceController::class, 'destroy'])->name('dashboard-services-destroy');
 
-// Route::put('/dashboard/appointments/{appointmentId}', [AppointmentController::class, 'update'])->name('dashboard-appointments-update');
-// Route::delete('/dashboard/appointments/{appointmentId}', [AppointmentController::class, 'destroy'])->name('dashboard-appointments-destroy');
-// Route::get('/dashboard/appointments/{appointmentId}/details', [AppointmentController::class, 'show'])->name('dashboard-appointments-details');
-// Route::get('/dashboard/appointments/{appointmentId}/edit', [AppointmentController::class, 'edit'])->name('dashboard-appointments-edit');
-// Route::get('/dashboard/appointments/{appointmentId}/status', [AppointmentController::class, 'status'])->name('dashboard-appointments-status');
+    //appointments Routes
+    Route::get('/dashboard/appointments', [AppointmentController::class, 'index'])->name('dashboard-appointments');
+    Route::get('/dashboard/appointments/edit/{id}', [AppointmentController::class, 'edit'])->name('dashboard-appointments-edit');
+    Route::get('/dashboard/appointments/create', [AppointmentController::class, 'create'])->name('dashboard-appointments-create');
+    Route::post('/dashboard/appointments', [AppointmentController::class, 'store'])->name('dashboard-appointments-store');
+    Route::post('/api/appointments', [AppointmentController::class, 'store_api'])->name('dashboard-appointments-store-api');
+    // Route::put('/dashboard/appointments/{appointment}', [AppointmentController::class, 'update'])->name('dashboard-appointments-update');
+    Route::delete('/dashboard/appointments/{id}', [AppointmentController::class, 'destroy'])->name('dashboard-appointments-destroy');
+    Route::post('/dashboard/appointments/status', [AppointmentController::class, 'updateStatus'])->name('dashboard-appointments-update-status');
+    Route::put('/dashboard/appointments/{id}', [AppointmentController::class, 'update'])->name('dashboard-appointments-update');
 
-Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard-categories');
-Route::get('/dashboard/categories/create', [CategoryController::class, 'create'])->name('dashboard-categories-create');
-Route::get('/dashboard/categories/edit/{id}', [CategoryController::class, 'edit'])->name('dashboard-categories-edit');
-Route::post('/dashboard/categories', [CategoryController::class, 'store'])->name('dashboard-categories-store');
-Route::put('/dashboard/categories/{id}', [CategoryController::class, 'update'])->name('dashboard-categories-update');
-Route::delete('/dashboard/categories/{id}', [CategoryController::class, 'destroy'])->name('dashboard-categories-destroy');
+    // Route::put('/dashboard/appointments/{appointmentId}', [AppointmentController::class, 'update'])->name('dashboard-appointments-update');
+    // Route::delete('/dashboard/appointments/{appointmentId}', [AppointmentController::class, 'destroy'])->name('dashboard-appointments-destroy');
+    // Route::get('/dashboard/appointments/{appointmentId}/details', [AppointmentController::class, 'show'])->name('dashboard-appointments-details');
+    // Route::get('/dashboard/appointments/{appointmentId}/edit', [AppointmentController::class, 'edit'])->name('dashboard-appointments-edit');
+    // Route::get('/dashboard/appointments/{appointmentId}/status', [AppointmentController::class, 'status'])->name('dashboard-appointments-status');
 
-
-//categories Routes
-// Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard-categories');
-// Route::post('/dashboard/categories', [CategoryController::class, 'store'])->name('dashboard-categories-store');
-// Route::put('/dashboard/categories/{id}', [CategoryController::class, 'update'])->name('dashboard-categories-update');
-// Route::delete('/dashboard/categories/{id}', [CategoryController::class, 'destroy'])->name('dashboard-categories-destroy');
-
-//sub-categories Routes
-Route::get('/dashboard/sub-categories', [SubCategoryController::class, 'index'])->name('dashboard-sub-categories');
-Route::get('/dashboard/sub-categories/create', [SubCategoryController::class, 'create'])->name('dashboard-sub-categories-create');
-Route::get('/dashboard/sub-categories/edit/{id}', [SubCategoryController::class, 'edit'])->name('dashboard-sub-categories-edit');
-Route::post('/dashboard/sub-categories', [SubCategoryController::class, 'store'])->name('dashboard-sub-categories-store');
-Route::put('/dashboard/sub-categories/{id}', [SubCategoryController::class, 'update'])->name('dashboard-sub-categories-update');
-Route::delete('/dashboard/sub-categories/{id}', [SubCategoryController::class, 'destroy'])->name('dashboard-sub-categories-destroy');
+    Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard-categories');
+    Route::get('/dashboard/categories/create', [CategoryController::class, 'create'])->name('dashboard-categories-create');
+    Route::get('/dashboard/categories/edit/{id}', [CategoryController::class, 'edit'])->name('dashboard-categories-edit');
+    Route::post('/dashboard/categories', [CategoryController::class, 'store'])->name('dashboard-categories-store');
+    Route::put('/dashboard/categories/{id}', [CategoryController::class, 'update'])->name('dashboard-categories-update');
+    Route::delete('/dashboard/categories/{id}', [CategoryController::class, 'destroy'])->name('dashboard-categories-destroy');
 
 
+    //categories Routes
+    // Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard-categories');
+    // Route::post('/dashboard/categories', [CategoryController::class, 'store'])->name('dashboard-categories-store');
+    // Route::put('/dashboard/categories/{id}', [CategoryController::class, 'update'])->name('dashboard-categories-update');
+    // Route::delete('/dashboard/categories/{id}', [CategoryController::class, 'destroy'])->name('dashboard-categories-destroy');
 
-// Brands Routes
-Route::get('/dashboard/brands', [BrandController::class, 'index'])->name('dashboard-brands');
-Route::get('/dashboard/brands/create', [BrandController::class, 'create'])->name('dashboard-brands-create');
-Route::get('/dashboard/brands/edit/{id}', [BrandController::class, 'edit'])->name('dashboard-brands-edit');
-Route::post('/dashboard/brands', [BrandController::class, 'store'])->name('dashboard-brands-store');
-Route::put('/dashboard/brands/{id}', [BrandController::class, 'update'])->name('dashboard-brands-update');
-Route::delete('/dashboard/brands/{id}', [BrandController::class, 'destroy'])->name('dashboard-brands-destroy');
+    //sub-categories Routes
+    Route::get('/dashboard/sub-categories', [SubCategoryController::class, 'index'])->name('dashboard-sub-categories');
+    Route::get('/dashboard/sub-categories/create', [SubCategoryController::class, 'create'])->name('dashboard-sub-categories-create');
+    Route::get('/dashboard/sub-categories/edit/{id}', [SubCategoryController::class, 'edit'])->name('dashboard-sub-categories-edit');
+    Route::post('/dashboard/sub-categories', [SubCategoryController::class, 'store'])->name('dashboard-sub-categories-store');
+    Route::put('/dashboard/sub-categories/{id}', [SubCategoryController::class, 'update'])->name('dashboard-sub-categories-update');
+    Route::delete('/dashboard/sub-categories/{id}', [SubCategoryController::class, 'destroy'])->name('dashboard-sub-categories-destroy');
 
-// Products Routes
-Route::get('/dashboard/products', [ProductController::class, 'index'])->name('dashboard-products');
-Route::get('/dashboard/products/create', [ProductController::class, 'create'])->name('dashboard-products-create');
-Route::get('/dashboard/products/edit/{id}', [ProductController::class, 'edit'])->name('dashboard-products-edit');
-Route::post('/dashboard/products', [ProductController::class, 'store'])->name('dashboard-products-store');
-Route::put('/dashboard/products/{id}', [ProductController::class, 'update'])->name('dashboard-products-update');
-Route::delete('/dashboard/products/{id}', [ProductController::class, 'destroy'])->name('dashboard-products-destroy');
+
+
+    // Brands Routes
+    Route::get('/dashboard/brands', [BrandController::class, 'index'])->name('dashboard-brands');
+    Route::get('/dashboard/brands/create', [BrandController::class, 'create'])->name('dashboard-brands-create');
+    Route::get('/dashboard/brands/edit/{id}', [BrandController::class, 'edit'])->name('dashboard-brands-edit');
+    Route::post('/dashboard/brands', [BrandController::class, 'store'])->name('dashboard-brands-store');
+    Route::put('/dashboard/brands/{id}', [BrandController::class, 'update'])->name('dashboard-brands-update');
+    Route::delete('/dashboard/brands/{id}', [BrandController::class, 'destroy'])->name('dashboard-brands-destroy');
+
+    // Products Routes
+    Route::get('/dashboard/products', [ProductController::class, 'index'])->name('dashboard-products');
+    Route::get('/dashboard/products/create', [ProductController::class, 'create'])->name('dashboard-products-create');
+    Route::get('/dashboard/products/edit/{id}', [ProductController::class, 'edit'])->name('dashboard-products-edit');
+    Route::post('/dashboard/products', [ProductController::class, 'store'])->name('dashboard-products-store');
+    Route::put('/dashboard/products/{id}', [ProductController::class, 'update'])->name('dashboard-products-update');
+    Route::delete('/dashboard/products/{id}', [ProductController::class, 'destroy'])->name('dashboard-products-destroy');
+});
 
 //----Client Routes----
 Route::get('/', [ClientController::class, 'home'])->name('home');
@@ -216,3 +225,5 @@ Route::get('/categories/{category}/subcategories', [ClientController::class, 'ge
 
 
 Route::get('/check', [ClientController::class, 'check'])->name('check');
+
+require __DIR__.'/auth.php';

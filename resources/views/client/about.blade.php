@@ -6,7 +6,7 @@
         @include('client.partials.about.about-details')
         @include('client.partials.about.about-counter')
         @include('client.partials.about.about-contact')
-        @include('client.partials.about.about-teams')
+        {{-- @include('client.partials.about.about-teams') --}}
         @include('client.partials.about.about-testimonials')
     </main>
 @endsection
