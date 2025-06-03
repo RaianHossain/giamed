@@ -55,15 +55,19 @@
                                     <a href="{{ route('all-services') }}">Services</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('shop') }}">Product</a>
-                                    {{-- <ul class="submenu">
+                                    <a href="{{ route('shop') }}">Product
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 10L12 15L17 10" stroke="#0FBF97" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                    <ul class="submenu">
                                         <li>
-                                            <a href="{{ route('shop') }}">Shop Page</a>
+                                            <a href="{{ route('equipments') }}">Equipments</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('product-details') }}">Shop Details</a>
+                                            <a href="{{ route('parts') }}">Parts</a>
                                         </li>
-                                        <li>
+                                       {{--  <li>
                                             <a href="{{ route('cart') }}">Shopping Cart</a>
                                         </li>
                                         <li>

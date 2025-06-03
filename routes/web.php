@@ -211,8 +211,12 @@ Route::get('/store', [ClientController::class, 'store'])->name('store');
 Route::post('request-advice', [ClientController::class, 'requestAdvice'])->name('request-advice');
 
 Route::get('/shop', [ClientController::class, 'shop'])->name('shop');
+Route::get('/equipments', [ClientController::class, 'equipments'])->name('equipments');
+Route::get('/parts', [ClientController::class, 'parts'])->name('parts');
 
 Route::get('/api/shop', [ClientController::class, 'shop_api'])->name('api.shop');
+Route::get('/api/equipment', [ClientController::class, 'equipment_api'])->name('api.equipment');
+Route::get('/api/part', [ClientController::class, 'part_api'])->name('api.part');
 
 Route::get('/make-appointment', [ClientController::class, 'makeAppointmentPage'])->name('make-appointment');
 

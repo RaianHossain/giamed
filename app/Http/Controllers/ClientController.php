@@ -18,7 +18,6 @@ class ClientController extends Controller
         return view('client.about');
     }
 
-
     public function serviceDetails($slug) {
         $service = Service::where('slug', $slug)->first();
         $otherServices = Service::where('id', '!=', $service->id)->take(5)->get();
@@ -43,37 +42,32 @@ class ClientController extends Controller
 
     public function shop(Request $request)
     {
-        $query = Product::query();
-
-        // Filters
-        if ($request->filled('name')) {
-            $query->where('title', 'like', '%' . $request->name . '%');
-        }
-
-        if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
-        }
-
-        if ($request->filled('subcategory')) {
-            $query->where('sub_category_id', $request->subcategory);
-        }
-
-        if ($request->filled('brand')) {
-            $query->where('brand_id', $request->brand);
-        }
-
-        // Eager load relationships
-        $products = $query->with(['category', 'subCategory', 'brand'])->paginate(9);
-
         // For filter dropdowns
         $categories = \App\Models\Category::all();
         $subCategories = \App\Models\SubCategory::all();
         $brands = \App\Models\Brand::all();
 
-        // dd($products[0]->category->title);
-
-        return view('client.shop', compact('products', 'categories', 'subCategories', 'brands'));
+        return view('client.shop', compact('categories', 'subCategories', 'brands'));
     }
+
+    public function equipments()
+    {
+        $categories = \App\Models\Category::all();
+        $subCategories = \App\Models\SubCategory::all();
+        $brands = \App\Models\Brand::all();
+
+        return view('client.equipment', compact('categories', 'subCategories', 'brands'));
+    }
+
+    public function parts()
+    {
+        $categories = \App\Models\Category::all();
+        $subCategories = \App\Models\SubCategory::all();
+        $brands = \App\Models\Brand::all();
+
+        return view('client.part', compact('categories', 'subCategories', 'brands'));
+    }
+
 
     public function shop_api(Request $request)
     {
@@ -92,10 +86,6 @@ class ClientController extends Controller
         if ($request->filled('subCategory')) {  // Frontend sends 'subCategory'
             $query->where('sub_category_id', $request->subCategory);
         }
-        // OR if frontend sends 'subcategory':
-        // if ($request->filled('subcategory')) {
-        //     $query->where('sub_category_id', $request->subcategory);
-        // }
 
         if ($request->filled('brand')) {
             $query->where('brand_id', $request->brand);
@@ -130,7 +120,97 @@ class ClientController extends Controller
         return response()->json($response);
     }
 
-    
+    public function equipment_api(Request $request)
+    {
+        // Start with products only in the 'Machine' category
+        $query = Product::whereHas('category', function ($query) {
+            $query->where('title', 'Machine');
+        });
+
+        // Apply filters (AND logic)
+        if ($request->filled('name')) {
+            $query->where('title', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('brand')) {
+            $query->where('brand_id', $request->brand);
+        }
+
+        // Pagination
+        $page = $request->input('page', 1);
+        $perPage = 9;
+        $paginator = $query->with(['category', 'brand'])->paginate($perPage, ['*'], 'page', $page);
+
+        // Calculate displayed range
+        $from = (($paginator->currentPage() - 1) * $paginator->perPage()) + 1;
+        $to = min($paginator->currentPage() * $paginator->perPage(), $paginator->total());
+
+        // Response structure
+        $response = [
+            'data' => $paginator->items(),
+            'pagination' => [
+                'current_page' => $paginator->currentPage(),
+                'per_page' => $paginator->perPage(),
+                'total' => $paginator->total(),
+                'from' => $from,
+                'to' => $to,
+                'showing' => "$from-$to of {$paginator->total()}",
+                'has_more_pages' => $paginator->hasMorePages(),
+                'last_page' => $paginator->lastPage(),
+                'next_page_url' => $paginator->nextPageUrl(),
+                'prev_page_url' => $paginator->previousPageUrl(),
+            ]
+        ];
+
+        return response()->json($response);
+    }
+
+    public function part_api(Request $request)
+    {
+        // Start with products only in the 'Machine' category
+        $query = Product::whereHas('category', function ($query) {
+            $query->where('title', 'Parts');
+        });
+
+        // Apply filters (AND logic)
+        if ($request->filled('name')) {
+            $query->where('title', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('brand')) {
+            $query->where('brand_id', $request->brand);
+        }
+
+        // Pagination
+        $page = $request->input('page', 1);
+        $perPage = 9;
+        $paginator = $query->with(['category', 'brand'])->paginate($perPage, ['*'], 'page', $page);
+
+        // Calculate displayed range
+        $from = (($paginator->currentPage() - 1) * $paginator->perPage()) + 1;
+        $to = min($paginator->currentPage() * $paginator->perPage(), $paginator->total());
+
+        // Response structure
+        $response = [
+            'data' => $paginator->items(),
+            'pagination' => [
+                'current_page' => $paginator->currentPage(),
+                'per_page' => $paginator->perPage(),
+                'total' => $paginator->total(),
+                'from' => $from,
+                'to' => $to,
+                'showing' => "$from-$to of {$paginator->total()}",
+                'has_more_pages' => $paginator->hasMorePages(),
+                'last_page' => $paginator->lastPage(),
+                'next_page_url' => $paginator->nextPageUrl(),
+                'prev_page_url' => $paginator->previousPageUrl(),
+            ]
+        ];
+
+        return response()->json($response);
+    }
+
+
     public function productDetails($id)
     {
         $product = Product::with(['category', 'subCategory', 'brand'])
