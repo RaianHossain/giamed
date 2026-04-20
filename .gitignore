@@ -28,3 +28,4 @@ yarn-error.log
 /public/js
 
 trash.txt
+.DS_Store

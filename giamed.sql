@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 05, 2025 at 07:48 AM
--- Server version: 10.6.21-MariaDB-0ubuntu0.22.04.2
--- PHP Version: 8.3.20
+-- Generation Time: Apr 20, 2026 at 06:51 PM
+-- Server version: 9.3.0
+-- PHP Version: 8.2.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,15 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `appointments` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
-  `time` varchar(255) NOT NULL,
-  `special_request` text DEFAULT NULL,
-  `status` enum('pending','confirmed','canceled') NOT NULL DEFAULT 'pending',
-  `deleted_at` varchar(255) DEFAULT NULL,
-  `ip_address` varchar(255) DEFAULT NULL,
+  `time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `special_request` text COLLATE utf8mb4_unicode_ci,
+  `status` enum('pending','confirmed','canceled') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ip_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -55,12 +55,12 @@ INSERT INTO `appointments` (`id`, `name`, `phone`, `date`, `time`, `special_requ
 --
 
 CREATE TABLE `brands` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `logo` varchar(255) DEFAULT NULL,
-  `cover` varchar(255) DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -79,10 +79,18 @@ INSERT INTO `brands` (`id`, `title`, `slug`, `description`, `logo`, `cover`, `cr
 --
 
 CREATE TABLE `cache` (
-  `key` varchar(255) NOT NULL,
-  `value` mediumtext NOT NULL,
-  `expiration` int(11) NOT NULL
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('raianisworking@gmail.com|127.0.0.1', 'i:2;', 1776706633),
+('raianisworking@gmail.com|127.0.0.1:timer', 'i:1776706633;', 1776706633);
 
 -- --------------------------------------------------------
 
@@ -91,9 +99,9 @@ CREATE TABLE `cache` (
 --
 
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) NOT NULL,
-  `owner` varchar(255) NOT NULL,
-  `expiration` int(11) NOT NULL
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -103,18 +111,18 @@ CREATE TABLE `cache_locks` (
 --
 
 CREATE TABLE `call_requests` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  `message` text NOT NULL,
-  `is_read` tinyint(1) NOT NULL DEFAULT 0,
-  `is_replied` tinyint(1) NOT NULL DEFAULT 0,
-  `replied_message` varchar(255) DEFAULT NULL,
-  `replied_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT '0',
+  `is_replied` tinyint(1) NOT NULL DEFAULT '0',
+  `replied_message` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `replied_by` bigint UNSIGNED DEFAULT NULL,
   `resolved_at` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
-  `service_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_by` bigint UNSIGNED DEFAULT NULL,
+  `service_id` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -126,10 +134,10 @@ CREATE TABLE `call_requests` (
 --
 
 CREATE TABLE `categories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -149,13 +157,13 @@ INSERT INTO `categories` (`id`, `title`, `slug`, `description`, `created_at`, `u
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` bigint UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -165,13 +173,13 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `queue` varchar(255) NOT NULL,
-  `payload` longtext NOT NULL,
-  `attempts` tinyint(3) UNSIGNED NOT NULL,
-  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
-  `available_at` int(10) UNSIGNED NOT NULL,
-  `created_at` int(10) UNSIGNED NOT NULL
+  `id` bigint UNSIGNED NOT NULL,
+  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` tinyint UNSIGNED NOT NULL,
+  `reserved_at` int UNSIGNED DEFAULT NULL,
+  `available_at` int UNSIGNED NOT NULL,
+  `created_at` int UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -181,16 +189,16 @@ CREATE TABLE `jobs` (
 --
 
 CREATE TABLE `job_batches` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `total_jobs` int(11) NOT NULL,
-  `pending_jobs` int(11) NOT NULL,
-  `failed_jobs` int(11) NOT NULL,
-  `failed_job_ids` longtext NOT NULL,
-  `options` mediumtext DEFAULT NULL,
-  `cancelled_at` int(11) DEFAULT NULL,
-  `created_at` int(11) NOT NULL,
-  `finished_at` int(11) DEFAULT NULL
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_jobs` int NOT NULL,
+  `pending_jobs` int NOT NULL,
+  `failed_jobs` int NOT NULL,
+  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` mediumtext COLLATE utf8mb4_unicode_ci,
+  `cancelled_at` int DEFAULT NULL,
+  `created_at` int NOT NULL,
+  `finished_at` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -200,9 +208,9 @@ CREATE TABLE `job_batches` (
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
-  `batch` int(11) NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -228,10 +236,17 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('raianisworking@gmail.com', '$2y$12$Ycf.yzP1q6rR.smhLEcQ9ev.uEulXZey3QdSUQT27batTMUWNqPNm', '2026-04-20 11:27:11');
 
 -- --------------------------------------------------------
 
@@ -240,32 +255,76 @@ CREATE TABLE `password_reset_tokens` (
 --
 
 CREATE TABLE `products` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `price` double NOT NULL DEFAULT 0,
-  `avatar` varchar(255) DEFAULT NULL,
-  `cover` varchar(255) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `featured` tinyint(1) NOT NULL DEFAULT 0,
-  `quantity` int(11) NOT NULL DEFAULT 0,
-  `tags` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`tags`)),
-  `category_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `sub_category_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `brand_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
-  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `price` double NOT NULL DEFAULT '0',
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
+  `quantity` int NOT NULL DEFAULT '0',
+  `tags` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  `category_id` bigint UNSIGNED DEFAULT NULL,
+  `sub_category_id` bigint UNSIGNED DEFAULT NULL,
+  `brand_id` bigint UNSIGNED DEFAULT NULL,
+  `created_by` bigint UNSIGNED DEFAULT NULL,
+  `updated_by` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `title`, `slug`, `description`, `price`, `avatar`, `cover`, `active`, `featured`, `quantity`, `tags`, `category_id`, `sub_category_id`, `brand_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(2, 'Air Separator', 'air-separator', 'In kidney dialysis machines, air separators, also known as air bubble detectors or traps, are crucial safety features. They prevent air from entering the blood circuit and potentially causing a life-threatening embolism by detecting air bubbles in the blood flow.', 100, 'products/avatars/eiXsua87oKdW5Lh3GP2kqIBDZjerO1gUBX8bNqQW.png', NULL, 1, 1, 50, NULL, 4, 3, 2, NULL, NULL, '2025-04-19 10:35:16', '2025-04-19 10:35:16');
+(10, 'Air Separator 1', 'air-separator-1', 'An air separator in a kidney dialysis machine is a critical safety component designed to detect and remove air bubbles from the blood before it returns to the patient. This helps prevent air embolism, a potentially life-threatening condition.\r\n\r\nKey Functions of an Air Separator:\r\n\r\n1. Bubble Detection: Uses ultrasonic or optical sensors to detect air in the bloodline.\r\n\r\n\r\n2. Air Removal: Diverts air-contaminated blood into a chamber where air can rise and escape.\r\n\r\n\r\n3. Safety Alarms: Triggers alarms and can stop the blood pump if air is detected, preventing it from entering the patient\'s bloodstream.', 0, 'products/avatars/FJ6iUpbnwYoNpEVVxcDrPKJucPlpoiDIpvDfRSl0.jpg', NULL, 1, 1, 10, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 16:32:31', '2025-05-05 19:26:27'),
+(11, 'Air Separator 2', 'air-separator-2', 'The air separator in a kidney dialysis machine—also known as the air trap or venous air trap—is a safety device located in the venous line, just before the blood returns to the patient\'s body.\r\n\r\nPurpose:\r\n\r\n1. Removes air bubbles from the blood to prevent air embolism.\r\n\r\n2. Works alongside air detectors to ensure no air enters the patient’s bloodstream.', 0, 'products/avatars/pCOG9IF2JqPAX67tMchinCmxZOAO7uk6gwZJ15cX.jpg', NULL, 1, 1, 10, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 16:35:03', '2025-05-05 19:26:33'),
+(12, 'Air Separator 3', 'air-separator-3', 'The air separator in a kidney dialysis machine is a critical safety component designed to remove air bubbles from the blood before it returns to the patient. Here\'s a brief explanation of its function and importance:\r\n\r\nFunction of the Air Separator:\r\n\r\nLocation: Usually found in the venous line of the extracorporeal blood circuit.\r\n\r\nPurpose: Eliminates any air that may have entered the bloodline during dialysis.\r\n\r\nMechanism: Often uses a chamber where blood slows down, allowing air to rise and be vented out. Some systems may use ultrasonic detectors or optical sensors to monitor for air.', 0, 'products/avatars/sBuz4eBQL8OfwTWCqwoJrGlC9aTrBm0YBgWmP73v.jpg', NULL, 1, 1, 10, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 16:39:42', '2025-05-05 19:26:39'),
+(13, 'Balancing Chamber 1', 'balancing-chamber-1', 'The balancing chamber in a kidney dialysis machine plays a crucial role in maintaining fluid balance during the dialysis process. Here\'s a clear explanation:\r\n\r\nFunction of the Balancing Chamber:\r\n\r\nIn hemodialysis, waste and excess fluid are removed from the patient\'s blood by a dialysate solution. The balancing chamber ensures that:\r\n\r\n1. Equal volumes of fresh and used dialysate are exchanged.\r\n\r\n\r\n2. Precise ultrafiltration control is maintained (i.e., the amount of fluid removed from the blood).\r\n\r\n\r\n\r\nHow It Works:\r\n\r\n1. The balancing chamber typically uses a set of dual compartments (often a diaphragm or piston system):\r\n\r\n2. One side fills with fresh dialysate while the other side receives the used dialysate.\r\n\r\n3. These compartments alternate and swap volumes in a synchronized way.\r\n\r\n4. Sensors and valves ensure exact matching, preventing fluid imbalances that could harm the patient.', 0, 'products/avatars/2p3iiApOIodFvYFOb9QGHsbRi5JbRAmKASCNJkLs.jpg', NULL, 1, 1, 15, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 16:48:24', '2025-05-05 16:53:36'),
+(14, 'Balancing Chamber 2', 'balancing-chamber-2', 'The balancing chamber in a kidney dialysis machine is a critical component used to maintain precise fluid balance between the dialysate entering and exiting the dialyzer. This is essential to protect the patient from fluid overload or dehydration during dialysis.', 0, 'products/avatars/APlNbVTXfUsB6erGhI8GG1vxZnXSx9EGwY3UWKB6.jpg', NULL, 1, 1, 15, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 16:53:00', '2025-05-05 16:53:00'),
+(15, 'Blood pump motor 1', 'blood-pump-motor-1', 'The blood pump motor in a kidney dialysis machine plays a crucial role in moving the patient’s blood through the extracorporeal circuit, which includes the dialyzer (artificial kidney). Here’s an overview of its function and characteristics:\r\n\r\nFunction:\r\n\r\nThe blood pump motor drives a roller pump, which compresses flexible tubing to propel blood at a controlled and continuous rate.\r\n\r\nIt ensures a precise blood flow rate, usually between 150 to 500 mL/min, depending on treatment needs.\r\n\r\nThe consistent flow is critical for effective waste removal and maintaining patient safety.', 0, 'products/avatars/O2N9qW79GooZzqBfY2wEb6FLONyTQzKsJW0waVjR.jpg', NULL, 1, 1, 20, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 17:03:24', '2025-05-05 17:30:39'),
+(16, 'Blood pump motor 2', 'blood-pump-motor-2', 'The blood pump motor in a kidney dialysis machine is a critical component responsible for driving blood through the dialysis circuit. Here is a more detailed technical overview:\r\n\r\n1. Function:\r\nThe motor powers a peristaltic (roller) pump that pushes the patient’s blood through the dialysis tubing and dialyzer.\r\nIt must maintain steady, accurate flow rates to ensure efficient dialysis and patient safety.', 0, 'products/avatars/g3r0PyaURY6tFxjA5gT0U5X2sxG9Xep3kypzjUUH.jpg', NULL, 1, 1, 20, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 17:06:02', '2025-05-05 17:06:02'),
+(17, 'Blood pump motor 3', 'blood-pump-motor-3', 'The blood pump motor in a kidney dialysis machine plays a crucial role in moving the patient’s blood through the extracorporeal circuit, which includes the dialyzer (artificial kidney). Here’s an overview of its function and characteristics:\r\n\r\nFunction:\r\n\r\nThe blood pump motor drives a roller pump, which compresses flexible tubing to propel blood at a controlled and continuous rate.\r\n\r\nIt ensures a precise blood flow rate, usually between 150 to 500 mL/min, depending on treatment needs.\r\n\r\nThe consistent flow is critical for effective waste removal and maintaining patient safety.\r\n\r\n\r\nKey Features:\r\n\r\nBrushless DC motors are commonly used for reliability, low noise, and precise speed control.\r\n\r\nEquipped with feedback sensors (like Hall effect sensors or encoders) for accurate speed regulation.\r\n\r\nMust be biocompatible and easy to disinfect, as it operates near patient-contact components.\r\n\r\nEmergency stop and alarm integration for safety in case of occlusion or malfunction.', 0, 'products/avatars/QPIJ4A94taBGhQAOSWoIcnxXmiMbLuvuc6xeRDMt.jpg', NULL, 1, 1, 20, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 17:08:17', '2025-05-05 17:08:17'),
+(18, 'Blood pump motor 4', 'blood-pump-motor-4', 'The blood pump motor in kidney dialysis machines plays a critical role in the extracorporeal circuit—the system that moves blood outside the body for cleaning. Here’s a quick breakdown of its function and importance:\r\n\r\nFunction:\r\n\r\nThe blood pump motor drives a peristaltic pump (roller pump), which gently moves the patient\'s blood from their body, through the dialyzer (artificial kidney), and back.\r\n\r\nIt controls the blood flow rate, typically between 200–500 mL/min, ensuring efficient waste removal without harming the patient.\r\n\r\n\r\nKey Characteristics:\r\n\r\nPrecision and consistency: Flow rate must be accurate and stable.\r\n\r\nBiocompatibility: It does not come in contact with the blood directly, but it must handle tubing safely and reliably.\r\n\r\nQuiet and vibration-free: To ensure patient comfort and minimize mechanical wear.\r\n\r\nSpeed control: Adjustable speed settings help tailor dialysis to individual patient needs.', 0, 'products/avatars/dUCyKCTNbteuCaHKiSPWyAN01ezR2PPlpPdFOPHb.jpg', NULL, 1, 1, 20, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 17:21:02', '2025-05-05 17:21:02'),
+(19, 'Blood pump motor 5', 'blood-pump-motor-5', 'The blood pump motor in kidney dialysis machines plays a critical role in the extracorporeal circuit—the system that moves blood outside the body for cleaning. Here’s a quick breakdown of its function and importance:\r\n\r\nFunction:\r\n\r\nThe blood pump motor drives a peristaltic pump (roller pump), which gently moves the patient\'s blood from their body, through the dialyzer (artificial kidney), and back.\r\n\r\nIt controls the blood flow rate, typically between 200–500 mL/min, ensuring efficient waste removal without harming the patient.\r\n\r\n\r\nKey Characteristics:\r\n\r\nPrecision and consistency: Flow rate must be accurate and stable.\r\n\r\nBiocompatibility: It does not come in contact with the blood directly, but it must handle tubing safely and reliably.\r\n\r\nQuiet and vibration-free: To ensure patient comfort and minimize mechanical wear.\r\n\r\nSpeed control: Adjustable speed settings help tailor dialysis to individual patient needs.', 0, 'products/avatars/HMPRNiarL3cExqLoTUL6dHqKGMPNo69e5QLSh9Pz.jpg', NULL, 1, 1, 20, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 17:23:23', '2025-05-05 17:23:23'),
+(20, 'Blood pump motor 6', 'blood-pump-motor-6', 'The blood pump motor in kidney dialysis machines plays a critical role in the extracorporeal circuit—the system that moves blood outside the body for cleaning. Here’s a quick breakdown of its function and importance:\r\n\r\nFunction:\r\n\r\nThe blood pump motor drives a peristaltic pump (roller pump), which gently moves the patient\'s blood from their body, through the dialyzer (artificial kidney), and back.\r\n\r\nIt controls the blood flow rate, typically between 200–500 mL/min, ensuring efficient waste removal without harming the patient.\r\n\r\n\r\nKey Characteristics:\r\n\r\nPrecision and consistency: Flow rate must be accurate and stable.\r\n\r\nBiocompatibility: It does not come in contact with the blood directly, but it must handle tubing safely and reliably.\r\n\r\nQuiet and vibration-free: To ensure patient comfort and minimize mechanical wear.\r\n\r\nSpeed control: Adjustable speed settings help tailor dialysis to individual patient needs.', 0, 'products/avatars/IXJ2kWwrqcVkge7moEbxeZMXKRsga0ZMoiExqTDb.jpg', NULL, 1, 1, 20, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 17:26:07', '2025-05-05 17:26:07'),
+(21, 'Acid concentrate pump 1', 'acid-concentrate-pump-1', 'The acid concentrate pump in a kidney dialysis machine is part of the fluid delivery system that prepares the dialysate, the special fluid used to clean the blood during dialysis.\r\n\r\nAcid Concentrate Pump – Overview\r\n\r\nFunction:\r\n\r\nPumps acid concentrate (usually containing acetic or citric acid, electrolytes) from its container into a mixing chamber.\r\n\r\nMixes it with bicarbonate concentrate and purified water to create dialysate with the right chemical composition.', 0, 'products/avatars/Miqq6JQj46C5YqHFIwPTABthf4cVfUvZeHeBDWib.jpg', NULL, 1, 1, 10, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 17:29:26', '2025-05-05 17:29:26'),
+(22, 'Acid concentrate pump 2', 'acid-concentrate-pump-2', 'The acid concentrate pump in a kidney dialysis machine plays a key role in preparing the dialysate, the solution that helps remove waste and excess fluid from the patient’s blood during dialysis.\r\n\r\nAcid Concentrate Pump – Detailed Overview\r\n\r\nPurpose:\r\n\r\nPumps acid concentrate (which contains essential electrolytes and an acid like acetic, citric, or hydrochloric acid) into the dialysate mixing system.\r\n\r\nIt works together with a bicarbonate concentrate pump and purified water to produce dialysate in the correct ratio.', 0, 'products/avatars/jHrPkVLgXMuBChOL2n01JcLUVK6QNOEfPk3C1Br8.jpg', NULL, 1, 1, 10, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 17:33:31', '2025-05-05 17:33:31'),
+(23, 'Acid concentrate pump 3', 'acid-concentrate-pump-3', 'The acid concentrate pump in a kidney dialysis machine (specifically, in a hemodialysis machine) plays a crucial role in preparing the dialysate, which is the fluid used to help remove waste products from the patient\'s blood.\r\n\r\nFunction of the Acid Concentrate Pump:\r\n\r\nMixing Dialysate: The pump draws acid concentrate (which contains electrolytes like sodium, chloride, potassium, calcium, magnesium, and an acid such as acetic or citric acid) from a storage container.\r\n\r\nIt then mixes this concentrate with bicarbonate concentrate and purified water in precise proportions to create the final dialysate solution.\r\n\r\nThis dialysate is then delivered to the dialyzer (artificial kidney) where it interacts with the patient’s blood across a semi-permeable membrane.', 0, 'products/avatars/KAhZbDq6QiIz4t64J2A9DJntRqFp9dwM8XAgk5NI.jpg', NULL, 1, 1, 10, NULL, 4, 3, NULL, NULL, NULL, '2025-05-05 18:04:41', '2025-05-05 18:04:41'),
+(24, 'Deaeration motor 1', 'deaeration-motor-1', 'The deaeration motor in a kidney dialysis machine is part of the deaeration system, which removes air bubbles from the dialysate (the fluid used to draw waste from the blood). Air bubbles can cause problems such as:\r\n\r\nImpaired dialysis efficiency\r\n\r\nRisk of embolism if air enters the bloodstream\r\n\r\nSensor malfunction due to incorrect flow readings\r\n\r\n\r\nKey Functions of the Deaeration Motor:\r\n\r\n1. Drives the deaeration pump or mechanism to circulate dialysate through a deaeration chamber.\r\n\r\n\r\n2. Helps remove entrapped air using vacuum or centrifugal forces.\r\n\r\n\r\n3. Ensures continuous, bubble-free dialysate flow for safe and efficient dialysis.', 0, 'products/avatars/UH1brv0akQClV3CxfWixNhb3924iQ1V4GCADqEOm.jpg', NULL, 1, 1, 10, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 18:19:52', '2025-05-05 18:19:52'),
+(25, 'Deaeration motor 2', 'deaeration-motor-2', 'The deaeration motor in a kidney dialysis machine plays a critical role in ensuring the safe and efficient operation of the system by helping remove air bubbles from the dialysate before it enters the dialyzer (filter). Here\'s a more technical breakdown:\r\n\r\nDeaeration Motor: Overview\r\n\r\nPurpose:\r\nTo drive the mechanical components of the deaeration system, typically a pump or impeller, that removes dissolved gases or air bubbles from the dialysate fluid.', 0, 'products/avatars/iBd4zEO7XN315aRxtyHqbdpO4le7Mjt18pvG2YmN.jpg', NULL, 1, 1, 10, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 18:26:11', '2025-05-05 18:26:11'),
+(26, 'Deaeration motor 3', 'deaeration-motor-3', 'The deaeration motor in a kidney dialysis machine is a small but essential electric motor that powers the deaeration pump or centrifugal device responsible for removing air bubbles from the dialysate fluid. This is crucial because air bubbles in the fluid path can compromise dialysis safety and performance.\r\n\r\nKey Points:\r\n\r\nFunction: Drives a component (e.g., a centrifugal impeller or vacuum pump) that removes dissolved gases or entrained air from the dialysate.\r\n\r\nPlacement: Located in the dialysate circuit, typically after mixing and heating, and before the dialysate enters the dialyzer.\r\n\r\nImportance:\r\n\r\nPrevents air embolism (if air gets into the blood).\r\n\r\nEnsures accurate flow readings and prevents sensor errors.\r\n\r\nMaintains stable pressure and flow of dialysate.', 0, 'products/avatars/sd8R2WrglH5vB8wedYyagQz203Ti6aVmSmcaU0cT.jpg', NULL, 1, 1, 10, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 18:28:12', '2025-05-05 18:28:12'),
+(27, 'Dual port valve 1', 'dual-port-valve-1', 'The \"dual port value\" in a kidney dialysis machine typically refers to a dual-port valve used in the fluid management system. It helps control the flow of fluids such as dialysate, waste, and blood. Here\'s a breakdown:\r\n\r\nDual-Port Valve in Dialysis:\r\n\r\nFunction: Allows two pathways for fluid flow — often used to alternate or switch between fluid input and output lines.\r\n\r\nPurpose: Ensures proper direction and volume control of dialysate and blood during dialysis.\r\n\r\nApplication: Can be part of the balancing chamber, dialysate delivery system, or blood circuit.', 0, 'products/avatars/oB0ZMMLcvVWLvwjPArSABM1cRvYcd5nqCm4wqh0f.jpg', NULL, 1, 1, 15, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 18:39:32', '2025-05-05 18:39:32'),
+(28, 'Dual port valve 2', 'dual-port-valve-2', 'The \"dual port value\" in a kidney dialysis machine typically refers to a dual-port valve used in the fluid management system. It helps control the flow of fluids such as dialysate, waste, and blood. Here\'s a breakdown:\r\n\r\nDual-Port Valve in Dialysis:\r\n\r\nFunction: Allows two pathways for fluid flow — often used to alternate or switch between fluid input and output lines.\r\n\r\nPurpose: Ensures proper direction and volume control of dialysate and blood during dialysis.\r\n\r\nApplication: Can be part of the balancing chamber, dialysate delivery system, or blood circuit.\r\n\r\n\r\nKey Characteristics:\r\n\r\nPrecise control: Maintains proper pressure and flow rate.\r\n\r\nSafety: Prevents backflow and cross-contamination.\r\n\r\nAutomation: Often controlled electronically in modern machines.', 0, 'products/avatars/TpDsUlAyxyOgWP40er90xflFcwEOa8PgXN6brswE.jpg', NULL, 1, 1, 15, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 18:41:21', '2025-05-05 18:41:21'),
+(29, 'Dual port valve 3', 'dual-port-valve-3', 'The dual port valve in a kidney dialysis machine is a critical component used to control and direct the flow of fluids such as dialysate, blood, and waste fluids. Here\'s a more detailed explanation:\r\nWhat is a Dual Port Valve in Dialysis Machines?\r\n\r\nA dual port valve is a two-way valve that manages the flow between two ports or channels. In the context of dialysis, it plays a key role in fluid regulation.\r\n\r\nFunctions in a Dialysis Machine:\r\n\r\n1. Dialysate Flow Control: Regulates the fresh and used dialysate between the dialyzer and the machine.\r\n\r\n\r\n2. Switching Paths: Helps alternate flow between input and output lines or between different dialysate batches.\r\n\r\n\r\n3. Safety Mechanism: Prevents mixing of clean and used fluids.\r\n\r\n\r\n4. Precision: Ensures correct flow rates and volumes, essential for patient safety.', 0, 'products/avatars/AsR4G87aGp2zUgYPMLlz6VfDjRBPFFQhoWIRnUKu.jpg', NULL, 1, 1, 15, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 18:43:37', '2025-05-05 18:43:37'),
+(30, 'Flow Motor 1', 'flow-motor-1', 'In a kidney dialysis machine, the flow motor plays a crucial role in ensuring the proper circulation and pressure of dialysate (the dialysis fluid) and blood through the system. Here\'s how it typically functions:\r\n\r\nFlow Motor Functions in a Dialysis Machine:\r\n\r\n1. Blood Pump Motor:\r\n\r\nControls the flow rate of the patient\'s blood through the dialysis circuit.\r\n\r\nEnsures steady flow to allow efficient diffusion and filtration.\r\n\r\nUsually operates at rates of 200–500 mL/min.\r\n\r\n\r\n\r\n2. Dialysate Pump Motor:\r\n\r\nRegulates the flow of dialysate across the dialyzer membrane.\r\n\r\nMaintains precise concentrations of electrolytes and waste-removal efficiency.\r\n\r\nCommonly flows at 500–800 mL/min.\r\n\r\n\r\n\r\n3. Ultrafiltration Control (UF Pump):\r\n\r\nMotor-driven pumps manage the amount of fluid removed from the patient\'s blood.\r\n\r\nAdjusts based on the desired fluid removal rate.\r\n\r\n\r\n\r\n4. Heparin Pump Motor:\r\n\r\nSlowly and precisely administers anticoagulant (heparin) to prevent clotting in the extracorporeal circuit.', 0, 'products/avatars/4SfkaRBZhvqTJArAe3l7P0CEWbK4ra7zOiH3UXRm.jpg', NULL, 1, 1, 20, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 18:50:08', '2025-05-05 18:50:08'),
+(31, 'Flow motor 2', 'flow-motor-2', 'In a kidney dialysis machine, the flow motor plays a crucial role in ensuring the proper circulation and pressure of dialysate (the dialysis fluid) and blood through the system. Here\'s how it typically functions:\r\n\r\nFlow Motor Functions in a Dialysis Machine:\r\n\r\n1. Blood Pump Motor:\r\n\r\nControls the flow rate of the patient\'s blood through the dialysis circuit.\r\n\r\nEnsures steady flow to allow efficient diffusion and filtration.\r\n\r\nUsually operates at rates of 200–500 mL/min.\r\n\r\n\r\n\r\n2. Dialysate Pump Motor:\r\n\r\nRegulates the flow of dialysate across the dialyzer membrane.\r\n\r\nMaintains precise concentrations of electrolytes and waste-removal efficiency.\r\n\r\nCommonly flows at 500–800 mL/min.\r\n\r\n\r\n\r\n3. Ultrafiltration Control (UF Pump):\r\n\r\nMotor-driven pumps manage the amount of fluid removed from the patient\'s blood.\r\n\r\nAdjusts based on the desired fluid removal rate.\r\n\r\n\r\n\r\n4. Heparin Pump Motor:\r\n\r\nSlowly and precisely administers anticoagulant (heparin) to prevent clotting in the extracorporeal circuit.', 0, 'products/avatars/O82v56wmeuUau0DfRff7cTaGU2OR5m5qmDnBzTL1.jpg', NULL, 1, 1, 20, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 18:51:31', '2025-05-05 18:51:31'),
+(32, 'Flow motor 3', 'flow-motor-3', 'In a kidney dialysis machine, the flow motor plays a crucial role in ensuring the proper circulation and pressure of dialysate (the dialysis fluid) and blood through the system. Here\'s how it typically functions:\r\n\r\nFlow Motor Functions in a Dialysis Machine:\r\n\r\n1. Blood Pump Motor:\r\n\r\nControls the flow rate of the patient\'s blood through the dialysis circuit.\r\n\r\nEnsures steady flow to allow efficient diffusion and filtration.\r\n\r\nUsually operates at rates of 200–500 mL/min.\r\n\r\n\r\n\r\n2. Dialysate Pump Motor:\r\n\r\nRegulates the flow of dialysate across the dialyzer membrane.\r\n\r\nMaintains precise concentrations of electrolytes and waste-removal efficiency.\r\n\r\nCommonly flows at 500–800 mL/min.\r\n\r\n\r\n\r\n3. Ultrafiltration Control (UF Pump):\r\n\r\nMotor-driven pumps manage the amount of fluid removed from the patient\'s blood.\r\n\r\nAdjusts based on the desired fluid removal rate.\r\n\r\n\r\n\r\n4. Heparin Pump Motor:\r\n\r\nSlowly and precisely administers anticoagulant (heparin) to prevent clotting in the extracorporeal circuit.', 0, 'products/avatars/xD7YRuzSH2gsBZbP2U0fy4LAHAjk8qx0NfWTCe6n.jpg', NULL, 1, 1, 20, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 18:52:23', '2025-05-05 18:52:23'),
+(33, 'Fresenius 2008k', 'fresenius-2008k', 'The Fresenius 2008K is a hemodialysis machine designed specifically for patients with chronic kidney failure (end-stage renal disease). It is one of the most commonly used machines in dialysis clinics across the world due to its robust performance, safety features, and ease of use.\r\n\r\nOverview of the Fresenius 2008K Dialysis Machine\r\n\r\nPurpose:\r\n\r\nTo perform hemodialysis, which removes waste, excess fluids, and toxins from the blood when the kidneys are no longer functioning properly.\r\n\r\n\r\nHow It Works:\r\n\r\nBlood is drawn from the patient and passed through a dialyzer (artificial kidney).\r\n\r\nThe machine pumps the blood, controls dialysate flow, and monitors treatment parameters like blood pressure, ultrafiltration rate, and conductivity.', 0, 'products/avatars/aws7YPuV00lqZzdPNvZUlAEHH4rx0p2nGKdMFA5q.jpg', NULL, 1, 1, 20, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 18:58:59', '2025-05-05 18:58:59'),
+(34, 'Fresenius 2008T', 'fresenius-2008t', 'The Fresenius 2008T is a widely used hemodialysis machine designed for the treatment of patients with end-stage renal disease (ESRD). It is part of Fresenius Medical Care\'s line of dialysis systems and is known for its reliability, safety features, and advanced therapy options.\r\n\r\nKey Features of the Fresenius 2008T:\r\n\r\nTouchscreen Interface: Easy-to-use touch panel for simplified operation and monitoring.\r\n\r\nAutomated Functions: Auto priming, rinsing, and cleaning to save staff time and ensure consistency.\r\n\r\nBlood Volume Monitoring (BVM): Helps track and manage the patient’s blood volume during treatment.\r\n\r\nOnline Clearance Monitoring (OCM): Provides real-time feedback on dialysis adequacy (Kt/V).\r\n\r\nUltrafiltration Profiling: Enables more precise fluid removal strategies to enhance patient comfort.\r\n\r\nCompatibility with NxStage and Central Delivery Systems.', 0, 'products/avatars/OBY2EVrgNPVox6xNmQoWfKiX4ytPTo3rnyKXimQE.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:06:21', '2025-05-05 19:06:21'),
+(35, 'Front panel K-2', 'front-panel-k-2', 'Front panel K-2 of kidney dialysis machine', 0, 'products/avatars/vrIdF6FsncQPU7kCDZPqujyslAplta2a89xR0Ocf.jpg', NULL, 1, 1, 10, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:12:15', '2025-05-05 19:12:15'),
+(36, 'Front panel K-2 2', 'front-panel-k-2-2', 'Front panel K-2 of kidney dialysis machine', 0, 'products/avatars/BESmVXsnwPekA44rrbhJnnHYgZJaPugMUOgBrRon.jpg', NULL, 1, 1, 10, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:13:34', '2025-05-05 19:13:34'),
+(37, 'Hydro Chamber 1', 'hydro-chamber-1', 'The hydro chamber in a kidney dialysis machine (also known as a hemodialysis machine) isn\'t a standard term commonly used in nephrology or dialysis equipment documentation. However, you might be referring to one of the following components related to fluid control in dialysis:\r\n\r\n1. Hydraulic chamber – A component that helps manage the pressures and flow of dialysate and blood, ensuring the machine functions properly and safely. It may involve part of the ultrafiltration system, which controls fluid removal from the patient.\r\n\r\n\r\n2. Dialysate chamber – The area where dialysate flows through the machine. It maintains the correct composition and pressure, and helps with filtering waste and excess water from the blood.\r\n\r\n\r\n3. Pressure chamber – In some systems, there\'s a chamber that helps regulate transmembrane pressure (TMP) across the dialyzer membrane, ensuring proper fluid exchange.', 0, 'products/avatars/DTQHkHbHQ5Sjqhjc3QdXFAEcqthEmab9Wo1xwpuj.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:21:05', '2025-05-05 19:21:05'),
+(38, 'Hydro chamber 2', 'hydro-chamber-2', 'The hydro chamber in a kidney dialysis machine (also known as a hemodialysis machine) isn\'t a standard term commonly used in nephrology or dialysis equipment documentation. However, you might be referring to one of the following components related to fluid control in dialysis:\r\n\r\n1. Hydraulic chamber – A component that helps manage the pressures and flow of dialysate and blood, ensuring the machine functions properly and safely. It may involve part of the ultrafiltration system, which controls fluid removal from the patient.\r\n\r\n\r\n2. Dialysate chamber – The area where dialysate flows through the machine. It maintains the correct composition and pressure, and helps with filtering waste and excess water from the blood.\r\n\r\n\r\n3. Pressure chamber – In some systems, there\'s a chamber that helps regulate transmembrane pressure (TMP) across the dialyzer membrane, ensuring proper fluid exchange.', 0, 'products/avatars/KgEP3fEOvTJbKjhNqplBnhvOfsH3F1P6k9p9TmUZ.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:21:54', '2025-05-05 19:21:54'),
+(39, 'Hydro chamber 3', 'hydro-chamber-3', 'The hydro chamber in a kidney dialysis machine (also known as a hemodialysis machine) isn\'t a standard term commonly used in nephrology or dialysis equipment documentation. However, you might be referring to one of the following components related to fluid control in dialysis:\r\n\r\n1. Hydraulic chamber – A component that helps manage the pressures and flow of dialysate and blood, ensuring the machine functions properly and safely. It may involve part of the ultrafiltration system, which controls fluid removal from the patient.\r\n\r\n\r\n2. Dialysate chamber – The area where dialysate flows through the machine. It maintains the correct composition and pressure, and helps with filtering waste and excess water from the blood.\r\n\r\n\r\n3. Pressure chamber – In some systems, there\'s a chamber that helps regulate transmembrane pressure (TMP) across the dialyzer membrane, ensuring proper fluid exchange.', 0, 'products/avatars/lgVsqUNhJzgayYY0e4fdaKOiZMphggavo8XOAb6C.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:22:46', '2025-05-05 19:22:46'),
+(40, 'Power supply 1', 'power-supply-1', 'Kidney dialysis machines require a stable and reliable power supply because they support life-critical functions. Here’s an overview of the power supply system typically used:\r\n\r\n1. Main Power Supply\r\n\r\nVoltage: Typically powered by standard AC mains (110–240V, depending on region).\r\n\r\nFrequency: 50/60 Hz.\r\n\r\nConversion: Internally converted to regulated DC power for the electronic and mechanical components (e.g., pumps, sensors, displays).\r\n\r\n\r\n2. Uninterruptible Power Supply (UPS)\r\n\r\nMost machines are connected to a UPS to provide backup power in case of mains failure.\r\n\r\nAllows safe shutdown or temporary continuation of treatment.\r\n\r\n\r\n3. Internal Battery Backup (Optional)\r\n\r\nSome units, especially portable or home dialysis machines, include a built-in battery.\r\n\r\nProvides 15–30 minutes (or more) of emergency operation to prevent abrupt treatment stoppage.\r\n\r\n\r\n4. Power Management Features\r\n\r\nSurge protection to guard sensitive electronics.\r\n\r\nAlarms for power failure or fluctuations.\r\n\r\nIsolation transformers to protect patients from electrical shocks.', 0, 'products/avatars/wOdop9e0XI0gMN9Cv2qxPUXpkEmzSdtISWrKkRfv.jpg', NULL, 1, 1, 20, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:30:56', '2025-05-05 19:30:56'),
+(41, 'Power supply 2', 'power-supply-2', 'Kidney dialysis machines require a stable and reliable power supply because they support life-critical functions. Here’s an overview of the power supply system typically used:\r\n\r\n1. Main Power Supply\r\n\r\nVoltage: Typically powered by standard AC mains (110–240V, depending on region).\r\n\r\nFrequency: 50/60 Hz.\r\n\r\nConversion: Internally converted to regulated DC power for the electronic and mechanical components (e.g., pumps, sensors, displays).\r\n\r\n\r\n2. Uninterruptible Power Supply (UPS)\r\n\r\nMost machines are connected to a UPS to provide backup power in case of mains failure.\r\n\r\nAllows safe shutdown or temporary continuation of treatment.\r\n\r\n\r\n3. Internal Battery Backup (Optional)\r\n\r\nSome units, especially portable or home dialysis machines, include a built-in battery.\r\n\r\nProvides 15–30 minutes (or more) of emergency operation to prevent abrupt treatment stoppage.\r\n\r\n\r\n4. Power Management Features\r\n\r\nSurge protection to guard sensitive electronics.\r\n\r\nAlarms for power failure or fluctuations.\r\n\r\nIsolation transformers to protect patients from electrical shocks.', 0, 'products/avatars/TfPCkRyqiPhaSwHL6pZhjLIMx67MCwG29EMmGPBD.jpg', NULL, 1, 1, 20, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:31:42', '2025-05-05 19:31:42'),
+(42, 'Power supply 3', 'power-supply-3', 'Kidney dialysis machines require a stable and reliable power supply because they support life-critical functions. Here’s an overview of the power supply system typically used:\r\n\r\n1. Main Power Supply\r\n\r\nVoltage: Typically powered by standard AC mains (110–240V, depending on region).\r\n\r\nFrequency: 50/60 Hz.\r\n\r\nConversion: Internally converted to regulated DC power for the electronic and mechanical components (e.g., pumps, sensors, displays).\r\n\r\n\r\n2. Uninterruptible Power Supply (UPS)\r\n\r\nMost machines are connected to a UPS to provide backup power in case of mains failure.\r\n\r\nAllows safe shutdown or temporary continuation of treatment.\r\n\r\n\r\n3. Internal Battery Backup (Optional)\r\n\r\nSome units, especially portable or home dialysis machines, include a built-in battery.\r\n\r\nProvides 15–30 minutes (or more) of emergency operation to prevent abrupt treatment stoppage.\r\n\r\n\r\n4. Power Management Features\r\n\r\nSurge protection to guard sensitive electronics.\r\n\r\nAlarms for power failure or fluctuations.\r\n\r\nIsolation transformers to protect patients from electrical shocks.', 0, 'products/avatars/v8kG0yZmkaQAFcgOuVKHpFb577NjCzptzWXCvDOM.jpg', NULL, 1, 1, 20, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:32:23', '2025-05-05 19:32:23'),
+(43, 'Single port valve 1', 'single-port-valve-1', 'A single-port valve in a kidney dialysis machine typically refers to a valve that controls fluid flow through one port or channel—often used for managing the inflow or outflow of dialysate or blood. Here’s a brief explanation:\r\n\r\nFunction in Dialysis Machine:\r\n\r\nControl Fluid Flow: Regulates the flow of dialysate (cleansing fluid) or blood through a specific part of the dialysis circuit.\r\n\r\nOne Inlet/Outlet: A single-port valve has only one active port that can either be opened or closed to allow or block flow.\r\n\r\nTypes: Can be solenoid-operated, mechanically actuated, or pressure-sensitive.\r\n\r\nApplications:\r\n\r\nStart/stop dialysate delivery\r\n\r\nControl heparin dosing\r\n\r\nDirect waste fluid outflow\r\n\r\n\r\n\r\nImportance:\r\n\r\nEnsures precise control to prevent backflow or contamination.\r\n\r\nEnhances patient safety by managing pressures and flow rates accurately.', 0, 'products/avatars/zmrEXqiRsjkrGlKancRIImONmTOCrJMnKnZoz4gb.jpg', NULL, 1, 1, 10, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 19:38:47', '2025-05-05 19:38:47'),
+(44, 'Single port valve 2', 'single-port-valve-2', 'A single-port valve in a kidney dialysis machine typically refers to a valve that controls fluid flow through one port or channel—often used for managing the inflow or outflow of dialysate or blood. Here’s a brief explanation:\r\n\r\nFunction in Dialysis Machine:\r\n\r\nControl Fluid Flow: Regulates the flow of dialysate (cleansing fluid) or blood through a specific part of the dialysis circuit.\r\n\r\nOne Inlet/Outlet: A single-port valve has only one active port that can either be opened or closed to allow or block flow.\r\n\r\nTypes: Can be solenoid-operated, mechanically actuated, or pressure-sensitive.\r\n\r\nApplications:\r\n\r\nStart/stop dialysate delivery\r\n\r\nControl heparin dosing\r\n\r\nDirect waste fluid outflow\r\n\r\n\r\n\r\nImportance:\r\n\r\nEnsures precise control to prevent backflow or contamination.\r\n\r\nEnhances patient safety by managing pressures and flow rates accurately.', 0, 'products/avatars/W02l4fjhSzFDObsFHmKPNo7HLfwUqJTyaMqNxYWR.jpg', NULL, 1, 1, 10, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 19:39:32', '2025-05-05 19:39:32'),
+(45, 'Single port valve 3', 'single-port-valve-3', 'A single-port valve in a kidney dialysis machine typically refers to a valve that controls fluid flow through one port or channel—often used for managing the inflow or outflow of dialysate or blood. Here’s a brief explanation:\r\n\r\nFunction in Dialysis Machine:\r\n\r\nControl Fluid Flow: Regulates the flow of dialysate (cleansing fluid) or blood through a specific part of the dialysis circuit.\r\n\r\nOne Inlet/Outlet: A single-port valve has only one active port that can either be opened or closed to allow or block flow.\r\n\r\nTypes: Can be solenoid-operated, mechanically actuated, or pressure-sensitive.\r\n\r\nApplications:\r\n\r\nStart/stop dialysate delivery\r\n\r\nControl heparin dosing\r\n\r\nDirect waste fluid outflow\r\n\r\n\r\n\r\nImportance:\r\n\r\nEnsures precise control to prevent backflow or contamination.\r\n\r\nEnhances patient safety by managing pressures and flow rates accurately.', 0, 'products/avatars/eH4tvxUEDcjeSZWRD0ecesvtQ7LKx6ph2IXbVYl1.jpg', NULL, 1, 1, 10, NULL, 4, 2, NULL, NULL, NULL, '2025-05-05 19:40:18', '2025-05-05 19:40:18'),
+(46, 'Uf- pump 1', 'uf-pump-1', 'The UF pump (Ultrafiltration pump) in a kidney dialysis machine is responsible for removing excess fluid from the patient\'s blood during hemodialysis. Here\'s a concise overview:\r\n\r\nFunction:\r\n\r\nUF (Ultrafiltration) refers to the process of removing fluid from the blood.\r\n\r\nThe UF pump precisely controls the rate and volume of fluid removal by creating a pressure difference across the dialysis membrane.\r\n\r\nIt ensures safe fluid balance, preventing hypotension (if too much fluid is removed) or fluid overload (if too little is removed).', 0, 'products/avatars/Q3UsHSRck2qIugHoV0A821WFB3Vh48JRlfgNDc55.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:50:31', '2025-05-05 19:50:31'),
+(47, 'Uf - pump 2', 'uf-pump-2', 'The UF pump (Ultrafiltration pump) in a kidney dialysis machine is responsible for removing excess fluid from the patient\'s blood during hemodialysis. Here\'s a concise overview:\r\n\r\nFunction:\r\n\r\nUF (Ultrafiltration) refers to the process of removing fluid from the blood.\r\n\r\nThe UF pump precisely controls the rate and volume of fluid removal by creating a pressure difference across the dialysis membrane.\r\n\r\nIt ensures safe fluid balance, preventing hypotension (if too much fluid is removed) or fluid overload (if too little is removed).', 0, 'products/avatars/ugwvI8Jv4KfVfEN6dssUih60ZsaEhFuy28DuGhiI.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:51:13', '2025-05-05 19:51:13'),
+(48, 'Uf- pump 3', 'uf-pump-3', 'The UF pump (Ultrafiltration pump) in a kidney dialysis machine is responsible for removing excess fluid from the patient\'s blood during hemodialysis. Here\'s a concise overview:\r\n\r\nFunction:\r\n\r\nUF (Ultrafiltration) refers to the process of removing fluid from the blood.\r\n\r\nThe UF pump precisely controls the rate and volume of fluid removal by creating a pressure difference across the dialysis membrane.\r\n\r\nIt ensures safe fluid balance, preventing hypotension (if too much fluid is removed) or fluid overload (if too little is removed).', 0, 'products/avatars/UNrNqCWsgdbe0lmQS02Qjw5LQ2lzTkhySc0gB4cY.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 19:52:01', '2025-05-05 19:52:01'),
+(49, 'Mros', 'mros', 'The MROs (Maintenance, Repair, and Overhaul) of a kidney dialysis machine involve procedures and activities to ensure its safe, reliable, and effective functioning. Here\'s a breakdown of key MRO aspects:\r\n\r\n1. Maintenance\r\n\r\nRoutine Maintenance:\r\n\r\nDaily disinfection and cleaning.\r\n\r\nChecking and replacing filters.\r\n\r\nInspecting tubing and connections.\r\n\r\n\r\nPreventive Maintenance (usually monthly/quarterly):\r\n\r\nCalibration of sensors.\r\n\r\nVerifying alarms and safety systems.\r\n\r\nSoftware updates and system diagnostics.\r\n\r\n\r\n\r\n2. Repair\r\n\r\nReplacing faulty components such as:\r\n\r\nPumps\r\n\r\nValves\r\n\r\nDisplays or control panels\r\n\r\n\r\nAddressing leaks, blockages, or electrical issues.\r\n\r\n\r\n3. Overhaul\r\n\r\nComprehensive disassembly, cleaning, inspection, and reassembly.\r\n\r\nReplacement of worn-out or aging components.\r\n\r\nPerformed typically after a set number of operating hours or annually.\r\n\r\n\r\n4. Documentation and Compliance\r\n\r\nKeeping records of maintenance and repair activities.\r\n\r\nFollowing manufacturer guidelines and local health regulations.', 0, 'products/avatars/e4pcfbPrUIOVb0N92vwOGukQFpbMs6LC151D2BWX.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 20:43:11', '2025-05-05 20:43:11'),
+(50, 'Mroc', 'mroc', 'MROC typically stands for Maintenance, Repair, and Overhaul Costs, often used in engineering, aviation, or equipment lifecycle management.\r\n\r\nFor a kidney dialysis machine, the MROC includes the following:\r\n\r\n1. Maintenance\r\n\r\nRoutine servicing: Calibration, filter replacement, disinfection.\r\n\r\nConsumables check: Tubing, dialyzers, and cartridges.\r\n\r\nSoftware updates: Ensuring compliance with safety and efficiency standards.\r\n\r\n\r\n2. Repair\r\n\r\nComponent replacements: Pumps, sensors, display panels, valves.\r\n\r\nTroubleshooting: Fixing alarms, error codes, and fluid leaks.\r\n\r\n\r\n3. Overhaul\r\n\r\nMajor refurbishments: Complete inspection, deep cleaning, and re-certification.\r\n\r\nReplacements of critical systems: Electronics, fluid delivery system, etc.\r\n\r\nCompliance upgrades: Ensuring the machine meets updated clinical standard.', 0, 'products/avatars/gTtdaf4OnFKx86VSgpITh2S6cLBrzZNccsXkiodf.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 20:43:57', '2025-05-05 20:45:44'),
+(51, 'MRO 1', 'mro', 'mro of kidney dialysis machine', 0, 'products/avatars/jXWSG142RBqKhhbd0s9vw4RmRXQaiLO1XBOhcomM.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 20:47:08', '2025-05-05 20:53:57'),
+(52, 'MRO 2', 'mro-2', 'mro of kidney dialysis machine', 0, 'products/avatars/OmOyKlAlhU1uGoIrGklqmLpzT7G2mCMoStAtqKJk.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 20:52:51', '2025-05-05 20:52:51'),
+(53, 'MRO 3', 'mro-3', 'mro of kidney dialysis machine', 0, 'products/avatars/O5m5g1gmPhbv00WLu4xcn0YaxBV0ZIrryp7cImFH.jpg', NULL, 1, 1, 15, NULL, 2, 1, NULL, NULL, NULL, '2025-05-05 20:53:39', '2025-05-05 20:53:39'),
+(54, 'Dlalog plus', 'dlalog-plus', 'Dlalog plus is a part of kidney dialysis machine', 0, 'products/avatars/OkfebwCdiwXuieMIVpvCTfxgYe61uKJgSgNWYA76.jpg', NULL, 1, 1, 15, NULL, 2, 2, NULL, NULL, NULL, '2025-05-05 20:56:06', '2025-05-05 20:56:06');
 
 -- --------------------------------------------------------
 
@@ -274,14 +333,14 @@ INSERT INTO `products` (`id`, `title`, `slug`, `description`, `price`, `avatar`,
 --
 
 CREATE TABLE `services` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `short_description` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `content` longtext NOT NULL,
-  `avatar` varchar(255) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `short_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -302,12 +361,12 @@ INSERT INTO `services` (`id`, `title`, `slug`, `short_description`, `description
 --
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) NOT NULL,
-  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
-  `payload` longtext NOT NULL,
-  `last_activity` int(11) NOT NULL
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_unicode_ci,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_activity` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -315,7 +374,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('OtVbX3Hc0HOJJjysr02LrXcvHr3Rgb1hmkIpIY0A', NULL, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVkt2dHF3eHQ0ajJBckRUQUd4bVd3QmRrUkxmT2JXS3piZlU5TXdzMSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9tYWtlLWFwcG9pbnRtZW50Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1746431157);
+('WPGqkAcymphTLK73KQ8OepmYDDPFm1k0AmwdnBwy', 1, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT1FCN3hzd2VaNENjUlFFSm5ldnpzdG50amxTVUtnamM0aUllMnZrZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly9naWFtZWQudGVzdC9kYXNoYm9hcmQvYXBwb2ludG1lbnRzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1776706731);
 
 -- --------------------------------------------------------
 
@@ -324,10 +383,10 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 --
 
 CREATE TABLE `sub_categories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -348,15 +407,22 @@ INSERT INTO `sub_categories` (`id`, `title`, `slug`, `description`, `created_at`
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'superadmin@giamedical.com', NULL, '$2y$12$NetEwzRdX8heNNUoZ.sIEOQuHDa94hNzhonNJgG7O/7a3YnRNi1wy', NULL, '2025-05-12 20:29:45', '2026-04-20 11:38:06');
 
 --
 -- Indexes for dumped tables
@@ -484,67 +550,67 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `call_requests`
 --
 ALTER TABLE `call_requests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

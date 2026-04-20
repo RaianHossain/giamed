@@ -1,0 +1,55 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: giamed_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    networks:
+      - giamed_network
+    depends_on:
+      - db
+    command: >
+      sh -c "chmod -R 755 /var/www/storage /var/www/bootstrap/cache /var/www/public/build &&
+             chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/public/build &&
+             php-fpm"
+
+  nginx:
+    image: nginx:alpine
+    container_name: giamed_nginx
+    restart: unless-stopped
+    ports:
+      - '8000:80'
+    volumes:
+      - .:/var/www
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - giamed_network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: giamed_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: giamed
+      MYSQL_USER: giamed
+      MYSQL_PASSWORD: giamed
+    ports:
+      - '3306:3306'
+    volumes:
+      - giamed_db_data:/var/lib/mysql
+    networks:
+      - giamed_network
+
+networks:
+  giamed_network:
+    driver: bridge
+
+volumes:
+  giamed_db_data:
