@@ -1,2 +1,14 @@
 *
 !.gitignore
+!products/
+!brands/
+!services/
+products/*
+brands/*
+services/*
+!products/*.jpg
+!products/*.png
+!products/*.jpeg
+!products/*.gif
+!brands/*
+!services/*
