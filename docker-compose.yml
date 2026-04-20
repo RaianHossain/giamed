@@ -13,8 +13,9 @@ services:
     depends_on:
       - db
     command: >
-      sh -c "chmod -R 755 /var/www/storage /var/www/bootstrap/cache /var/www/public/build &&
-             chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/public/build &&
+      sh -c "mkdir -p /var/www/public/build &&
+             chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/public/build || true &&
+             chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/public/build || true &&
              php-fpm"
 
   nginx:
